@@ -1,7 +1,7 @@
 import { Route, Routes } from 'react-router-dom'
 import HomePage from './pages/Home'
 import Navbar from './components/Navbar'
-import AnimeDetailPage from './pages/AnimeDetail'
+import MovieDetailPage from './pages/MovieDetail'
 import { useEffect, useState } from 'react'
 import { MovieProps } from './types/movie'
 import { useToast } from "@/hooks/use-toast"
@@ -13,7 +13,7 @@ function App() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch(`https://api.themoviedb.org/3/movie/157336`, {
+        const res = await fetch(`https://api.themoviedb.org/3/movie/latest?page=1`, {
           method: "GET",
           headers: {
             "Content-type": "application/json",
@@ -33,14 +33,14 @@ function App() {
     fetchData();
   }, []);
 
-  console.log(data?.title)
+  // console.log("dataa", data)
 
   return (
     <>
       <Navbar />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/anime/:animeId" element={<AnimeDetailPage />} />
+        <Route path="/" element={<HomePage data={data} />} />
+        <Route path="/movie/:movieId" element={<MovieDetailPage />} />
       </Routes>
     </>
   )
