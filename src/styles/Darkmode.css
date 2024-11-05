@@ -5,6 +5,12 @@ body {
 }
 
 body.dark-mode {
-  background-color: black;
+  background-color: #222831;
   color: white;
+  
 }
+
+/* nav.dark-mode {
+  background-color: #00ADB5;
+  color: black;
+} */
