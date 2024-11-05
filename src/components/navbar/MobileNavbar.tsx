@@ -1,6 +1,7 @@
 import { cn } from "@/lib/utils";
 import { Switch } from "../ui/switch";
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "../ui/sheet";
+import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 
 interface MobileNavbarProps {
   toggleDarkMode: () => void;
@@ -24,7 +25,7 @@ const MobileNavbar = ({ toggleDarkMode, isDarkMode }: MobileNavbarProps) => {
               <div className="flex flex-col">
                 <Switch onCheckedChange={toggleDarkMode} checked={isDarkMode} />
                 <label htmlFor="darkmode" className="text-[0.8rem]">
-                  {isDarkMode ? "🌙" : "☀️"}
+                  {isDarkMode ? <MoonIcon className="h-5 w-5" /> : <SunIcon className="h-5 w-5" />}
                 </label>
               </div>
             </SheetHeader>
