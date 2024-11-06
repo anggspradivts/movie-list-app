@@ -25,14 +25,7 @@ const Navbar = () => {
     }
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      // const res = await fetch("/");
-      // const data = await res.json();
-      console.log(keyword);
-    };
-    fetchData();
-  }, [keyword]);
+  
 
   const toggleDarkMode = () => {
     setIsDarkMode((prevMode) => {
@@ -80,15 +73,7 @@ const Navbar = () => {
           <p className="font-black text-4xl text-white">
             Watch Movies
           </p>
-          <div className="w-[300px] min-w-[200px] h-[30px]">
-            <input
-              type="search"
-              name=""
-              id=""
-              onChange={(e) => setKeyword(e.target.value)}
-              className={cn("w-full h-full border-black text-black", "")}
-            />
-          </div>
+          
         </div>
       </div>
     </div>

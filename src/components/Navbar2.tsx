@@ -1,16 +1,9 @@
-import { cn } from "@/lib/utils";
-import { NavLink, useParams } from "react-router-dom";
-import { Switch } from "./ui/switch";
 import { useEffect, useState } from "react";
-import backgroundImage from "@/assets/imdb_top_250.jpg";
 import DesktopNavbar from "./navbar/DesktopNavbar";
 import MobileNavbar from "./navbar/MobileNavbar";
 
 const Navbar = () => {
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [keyword, setKeyword] = useState("");
-
-  // const moviePoster =
 
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme");
@@ -25,15 +18,6 @@ const Navbar = () => {
       setIsDarkMode(false);
     }
   }, []);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      // const res = await fetch("/");
-      // const data = await res.json();
-      console.log(keyword);
-    };
-    fetchData();
-  }, [keyword]);
 
   const toggleDarkMode = () => {
     setIsDarkMode((prevMode) => {

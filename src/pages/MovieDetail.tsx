@@ -1,3 +1,4 @@
+import CarouselMovie from "@/components/movie-details/Carousel";
 import { MovieProps } from "@/types/movie";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
@@ -20,11 +21,10 @@ const AnimeDetailPage = () => {
     queryKey: ["MOVIE", movieId],
     queryFn: fetchData,
   });
-
-  console.log(data)
   
   return ( 
     <div>
+      <CarouselMovie data={data} />
       movieId : {movieId}
     </div>
    );

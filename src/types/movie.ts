@@ -11,4 +11,7 @@ export interface MovieProps {
   overview: string;
   genres: [];
   origin_country: [];
+  popularity: number;
+  vote_average: number;
+  vote_count: number;
 }

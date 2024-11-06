@@ -2,6 +2,8 @@ import { cn } from "@/lib/utils";
 import { Switch } from "../ui/switch";
 import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "../ui/sheet";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
+import SearchbarComponent from "../Searchbar";
+import { AlignJustify } from "lucide-react";
 
 interface MobileNavbarProps {
   toggleDarkMode: () => void;
@@ -19,16 +21,23 @@ const MobileNavbar = ({ toggleDarkMode, isDarkMode }: MobileNavbarProps) => {
       </div>
       <div className="">
         <Sheet>
-          <SheetTrigger>Open</SheetTrigger>
-          <SheetContent>
+          <SheetTrigger>
+            <AlignJustify />
+          </SheetTrigger>
+          <SheetContent className="flex flex-col  items-center">
             <SheetHeader>
-              <div className="flex flex-col">
+              <div className="flex flex-col space-y-1 text-black items-center ">
                 <Switch onCheckedChange={toggleDarkMode} checked={isDarkMode} />
                 <label htmlFor="darkmode" className="text-[0.8rem]">
-                  {isDarkMode ? <MoonIcon className="h-5 w-5" /> : <SunIcon className="h-5 w-5" />}
+                  {isDarkMode ? (
+                    <MoonIcon className="h-5 w-5" />
+                  ) : (
+                    <SunIcon className="h-5 w-5" />
+                  )}
                 </label>
               </div>
             </SheetHeader>
+            <SearchbarComponent />
           </SheetContent>
         </Sheet>
       </div>

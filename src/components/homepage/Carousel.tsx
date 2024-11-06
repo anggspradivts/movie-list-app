@@ -39,8 +39,8 @@ const CarouselComponent = ({ data }: CarouselProps) => {
                   backgroundImage: `url(https://image.tmdb.org/t/p/w500${item.backdrop_path})`,
                 }}
               >
-                <div className="flex justify-end items-center h-full w-full bg-black text-white bg-opacity-70">
-                  <div className="flex flex-col space-y-3 p-[30px] items-end text-end">
+                <div className="flex justify-end items-center h-full w-full bg-black text-white bg-opacity-70 backdrop-blur-sm">
+                  <div className="flex flex-col space-y-3 p-[30px] lg:px-[200px] items-end text-end">
                     <div className="hidden lg:block">
                       <img
                         src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
