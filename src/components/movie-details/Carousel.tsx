@@ -1,36 +1,41 @@
 import { cn } from "@/lib/utils";
-import { MovieProps } from "@/types/movie";
+import { MovieDetailsProps } from "@/types/movie-details";
 
 interface CarouselMovieProps {
-  data: MovieProps | undefined;
+  data: MovieDetailsProps | undefined;
 }
 const CarouselMovie = ({ data }: CarouselMovieProps) => {
+  console.log(data);
   return (
     <div
-      className="h-[500px] w-full bg-cover bg-center shadow-md"
+      className="h-[500px] w-full bg-cover bg-center shadow-lg text-white shadow-submain2"
       style={{
         backgroundImage: `url(https://image.tmdb.org/t/p/w500${data?.backdrop_path})`,
       }}
     >
       <div
         className={cn(
-          "h-full w-full bg-black bg-opacity-50 backdrop-blur-md",
+          "h-full w-full bg-black bg-opacity-50 backdrop-blur-lg",
           "flex justify-center items-center"
         )}
       >
-        <div className="h-1/2 w-1/2 grid grid-cols-1 md:grid-cols-2  bg-black">
-          <div className="h-[200px] w-[150px] flex justify-center items-center">
+        <div className="flex flex-col md:flex-row md:space-x-5 mx-[20px] md:m-[100px] lg:m-[200px]">
+          <div className="h-[200px] w-[150px] shadow-md flex-shrink-0">
             <img
               src={`https://image.tmdb.org/t/p/w500${data?.poster_path}`}
               alt=""
-              className=""
+              className="w-full h-full object-cover"
             />
           </div>
-          <div>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas
-            adipisci recusandae nemo obcaecati quae nesciunt facilis nulla in.
-            Nam facere esse placeat asperiores! Deserunt, quod aut asperiores
-            ducimus obcaecati laudantium.
+          <div className="space-y-4">
+            <p className="text-lg font-bold">{data?.title}</p>
+            <p>{data?.overview}</p>
+            <span>{}</span>
+            <div className="flex space-x-2">
+              <button className="bg-submain2 bg-opacity-40 text-white p-3 px-5 rounded-full shadow-md">
+                View Trailer
+              </button>
+            </div>
           </div>
         </div>
       </div>

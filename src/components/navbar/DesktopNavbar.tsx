@@ -13,10 +13,10 @@ const DesktopNavbar = ({ toggleDarkMode, isDarkMode }: DesktopNavbarProps) => {
         "flex justify-between items-center h-[70px] md:px-[50px] bg-black bg-opacity-40"
       )}
     >
-      <div className="">
+      <div className="w-[100px]">
         <h1 className="font-bold">Movie List</h1>
       </div>
-      <div className="flex space-x-5 items-center">
+      <div className="flex w-full space-x-5 items-center">
         <SearchbarComponent />
         <div className="flex flex-col space-y-1 items-center">
           <Switch onCheckedChange={toggleDarkMode} checked={isDarkMode} />

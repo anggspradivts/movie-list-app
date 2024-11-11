@@ -1,6 +1,5 @@
 import { MovieProps } from "@/types/movie";
 import { useQuery } from "@tanstack/react-query";
-import { useEffect, useState } from "react";
 
 import TopMoviesComponent from "@/components/homepage/TopMovies";
 import CarouselComponent from "@/components/homepage/Carousel";

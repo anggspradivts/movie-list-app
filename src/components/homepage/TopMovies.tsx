@@ -1,6 +1,7 @@
 import { MovieProps } from "@/types/movie";
 import { Link } from "react-router-dom";
-import { LoaderCircle } from "lucide-react"
+import { LoaderCircle } from "lucide-react";
+import ScrollXLayout from "../layouts/ScrollXlayout";
 
 interface TopMoviesProps {
   data: MovieProps[];
@@ -8,16 +9,17 @@ interface TopMoviesProps {
 }
 const TopMoviesComponent = ({ data, isLoading }: TopMoviesProps) => {
   const slicedData = data.slice(0, 10);
+
   return (
-    <div className="overflow-x-auto pt-[30px]">
-      <div className="flex space-x-4">
-        {slicedData.map((item) => {
+    <ScrollXLayout>
+      <div className="flex space-x-4 ">
+          {slicedData.map((item) => {
             return (
               <Link key={item.id} to={`/movie/${item.id}`}>
-                <div className="space-y-1 ">
+                <div  className="space-y-1 ">
                   <div className="min-w-[100px] md:min-w-[150px] flex justify-center items-center bg-black bg-opacity-20">
                     {isLoading ? (
-                       <LoaderCircle className="animate-spin" />
+                      <LoaderCircle className="animate-spin" />
                     ) : (
                       <img
                         src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
@@ -35,8 +37,8 @@ const TopMoviesComponent = ({ data, isLoading }: TopMoviesProps) => {
               </Link>
             );
           })}
-      </div>
-    </div>
+        </div>
+    </ScrollXLayout>
   );
 };
 

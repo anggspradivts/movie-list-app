@@ -1,4 +1,4 @@
-export interface MovieProps {
+export type MovieDetailsProps = {
   adult: boolean;
   id: string;
   status: string;
