@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 
 import TopMoviesComponent from "@/components/homepage/TopMovies";
 import CarouselComponent from "@/components/homepage/Carousel";
+import FilterSec from "@/components/homepage/FilterSec";
 
 const HomePage = () => {
   const fetchData = async () => {
@@ -32,6 +33,7 @@ const HomePage = () => {
   return (
     <div className="flex flex-col justify-center px-4 md:px-[50px] lg:px-[100px]">
       <CarouselComponent data={data} />
+      <FilterSec />
       <TopMoviesComponent data={data} isLoading={isLoading} />
     </div>
    );

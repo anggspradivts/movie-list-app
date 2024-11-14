@@ -11,12 +11,22 @@ const TopMoviesComponent = ({ data, isLoading }: TopMoviesProps) => {
   const slicedData = data.slice(0, 10);
 
   return (
-    <ScrollXLayout>
-      <div className="flex space-x-4 ">
+    <div>
+      <div className="py-[30px] flex justify-between items-center">
+        <h1 className="text-2xl font-bold">Top Movies</h1>
+        <button
+          // onClick={() => navigate(`/movie/${item.id}`)}
+          className="bg-black bg-opacity-10 text-white p-2 px-3 rounded [box-shadow:0_5px_5px_rgba(0,0,0,0.2)] active:translate-y-1"
+        >
+          More
+        </button>
+      </div>
+      <ScrollXLayout>
+        <div className="flex space-x-4 ">
           {slicedData.map((item) => {
             return (
               <Link key={item.id} to={`/movie/${item.id}`}>
-                <div  className="space-y-1 ">
+                <div className="space-y-1 ">
                   <div className="min-w-[100px] md:min-w-[150px] flex justify-center items-center bg-black bg-opacity-20">
                     {isLoading ? (
                       <LoaderCircle className="animate-spin" />
@@ -38,7 +48,8 @@ const TopMoviesComponent = ({ data, isLoading }: TopMoviesProps) => {
             );
           })}
         </div>
-    </ScrollXLayout>
+      </ScrollXLayout>
+    </div>
   );
 };
 

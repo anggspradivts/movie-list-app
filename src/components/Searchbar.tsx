@@ -20,6 +20,7 @@ const SearchbarComponent = () => {
         }
       );
       const data = await res.json();
+      console.log(data)
       setData(data);
     };
 
