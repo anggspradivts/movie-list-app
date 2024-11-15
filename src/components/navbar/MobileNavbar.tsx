@@ -4,6 +4,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTrigger } from "../ui/sheet";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import SearchbarComponent from "../Searchbar";
 import { AlignJustify } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 interface MobileNavbarProps {
   toggleDarkMode: () => void;
@@ -17,7 +18,9 @@ const MobileNavbar = ({ toggleDarkMode, isDarkMode }: MobileNavbarProps) => {
       )}
     >
       <div className="">
-        <h1 className="font-bold">Movie List</h1>
+        <NavLink to={"/"}>
+          <h1 className="font-bold"> Movie List</h1>
+        </NavLink>
       </div>
       <div className="">
         <Sheet>

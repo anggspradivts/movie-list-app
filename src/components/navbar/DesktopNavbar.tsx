@@ -2,31 +2,38 @@ import { cn } from "@/lib/utils";
 import { Switch } from "../ui/switch";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import SearchbarComponent from "../Searchbar";
+import { NavLink } from "react-router-dom";
 interface DesktopNavbarProps {
   isDarkMode: boolean;
   toggleDarkMode: () => void;
 }
 const DesktopNavbar = ({ toggleDarkMode, isDarkMode }: DesktopNavbarProps) => {
-  return ( 
+  return (
     <nav
       className={cn(
         "flex justify-between items-center h-[70px] md:px-[50px] bg-black bg-opacity-40"
       )}
     >
       <div className="w-[100px]">
-        <h1 className="font-bold">Movie List</h1>
+        <NavLink to={"/"}>
+          <h1 className="font-bold"> Movie List</h1>
+        </NavLink>
       </div>
       <div className="flex w-full space-x-5 items-center">
         <SearchbarComponent />
         <div className="flex flex-col space-y-1 items-center">
           <Switch onCheckedChange={toggleDarkMode} checked={isDarkMode} />
           <label htmlFor="darkmode" className="text-[0.8rem]">
-            {isDarkMode ? <MoonIcon className="h-5 w-5" /> : <SunIcon className="h-5 w-5" />}
+            {isDarkMode ? (
+              <MoonIcon className="h-5 w-5" />
+            ) : (
+              <SunIcon className="h-5 w-5" />
+            )}
           </label>
         </div>
       </div>
     </nav>
-   );
-}
- 
+  );
+};
+
 export default DesktopNavbar;
