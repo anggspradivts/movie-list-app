@@ -1,9 +1,11 @@
 import CarouselMovie from "@/components/movie-details/Carousel";
 import MovieCreditsComponent from "@/components/movie-details/MovieCredits";
 import MovieImageComponent from "@/components/movie-details/MovieImg";
+import MovieVideoComponent from "@/components/movie-details/MovieVideo";
 import RecomendationSec from "@/components/movie-details/Recomendation";
 import { MovieCredits } from "@/types/movie-credits";
 import { MovieDetailsProps } from "@/types/movie-details";
+import { MovieVideoProps } from "@/types/movie-video";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 
@@ -40,6 +42,17 @@ const fetchMovieCredits = async (movieId: string) => {
   return res.json();
 };
 
+const fetchMovieVideo = async (movieId: string) => {
+  const res = await fetch(`https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`, {
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${process.env.API_READ_ACCESS_TOKEN}`,
+    },
+  });
+  if (!res.ok) throw new Error("Failed to fetch movie credits");
+  return res.json();
+};
+
 const MovieDetailPage = () => {
   const { movieId } = useParams<{ movieId: string }>();
   
@@ -50,26 +63,31 @@ const MovieDetailPage = () => {
     enabled: !!movieId,
   });
 
-  const { data: movieRecomendations } = useQuery<{ results: MovieDetailsProps[] }>({
+  const { data: movieRecomendations, isLoading: isLoadingRec } = useQuery<{ results: MovieDetailsProps[] }>({
     queryKey: ["MOVIE_RECOMENDATION", movieId],
     queryFn: () => fetchMovieRecommendations(movieId!),
     enabled: !!movieId
   });
 
-  const { data: movieCredits } = useQuery<MovieCredits>({
+  const { data: movieCredits, isLoading: isLoadingCredits} = useQuery<MovieCredits>({
     queryKey: ["MOVIE_CREDITS", movieId],
     queryFn: () => fetchMovieCredits(movieId!),
     enabled: !!movieId
   });
 
-  console.log("rexx", movieCredits)
+  const { data: movieVideo, isLoading: isLoadingVideo} = useQuery<MovieVideoProps>({
+    queryKey: ["MOVIE_VIDEO", movieId],
+    queryFn: () => fetchMovieVideo(movieId!),
+    enabled: !!movieId
+  });
 
   return (
     <div>
       <CarouselMovie data={movieDetails} />
+      <MovieVideoComponent data={movieVideo} />
       <MovieImageComponent movieId={movieId} />
       <RecomendationSec data={movieRecomendations} />
-      <MovieCreditsComponent data={movieCredits} />
+      <MovieCreditsComponent data={movieCredits} isLoading={isLoadingCredits} />
     </div>
   );
 };

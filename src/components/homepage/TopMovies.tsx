@@ -2,13 +2,14 @@ import { MovieProps } from "@/types/movie";
 import { Link } from "react-router-dom";
 import { LoaderCircle } from "lucide-react";
 import ScrollXLayout from "../layouts/ScrollXlayout";
+import { MovieDetailsProps } from "@/types/movie-details";
 
 interface TopMoviesProps {
-  data: MovieProps[];
+  data: MovieDetailsProps[];
   isLoading: boolean;
 }
 const TopMoviesComponent = ({ data, isLoading }: TopMoviesProps) => {
-  const slicedData = data.slice(0, 10);
+  const slicedData = data && data.slice(0, 10);
 
   return (
     <div>
@@ -23,9 +24,9 @@ const TopMoviesComponent = ({ data, isLoading }: TopMoviesProps) => {
       </div>
       <ScrollXLayout>
         <div className="flex space-x-4 ">
-          {slicedData.map((item) => {
+          {slicedData.map((item, index) => {
             return (
-              <Link key={item.id} to={`/movie/${item.id}`}>
+              <Link key={index} to={`/movie/${item.id}`}>
                 <div className="space-y-1 ">
                   <div className="min-w-[100px] md:min-w-[150px] flex justify-center items-center bg-black bg-opacity-20">
                     {isLoading ? (

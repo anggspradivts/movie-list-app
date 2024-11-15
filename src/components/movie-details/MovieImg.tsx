@@ -100,7 +100,7 @@ const MovieImageComponent = ({ movieId }: MovieImageComponentProps) => {
           </div>
         </div>
         {imageOverlay && (
-          <div className="flex justify-center items-center fixed inset-0 h-screen w-screen bg-black bg-opacity-50">
+          <div className="flex justify-center items-center fixed inset-0 h-screen w-screen bg-black bg-opacity-50 z-[9999]">
             <div
               ref={imagesOverlay}
               className="h-2/3 w-2/3 p-5 bg-white overflow-y-scroll space-y-4"

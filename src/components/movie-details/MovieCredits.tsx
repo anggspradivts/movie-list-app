@@ -6,19 +6,10 @@ import { useEffect, useState } from "react";
 
 interface MovieCreditsComponentProps {
   data: MovieCredits | undefined;
+  isLoading: boolean;
 }
-const MovieCreditsComponent = ({ data }: MovieCreditsComponentProps) => {
-  const [isLoading, setIsLoading] = useState(true)
-  useEffect(() => {
-
-    if (data) {
-      setIsLoading(false)
-    } else {
-      setIsLoading(true);
-    }
-  }, [data])
-
-  const castingData: Cast[] = data?.cast || [];
+const MovieCreditsComponent = ({ data, isLoading }: MovieCreditsComponentProps) => {
+  const castingData: Cast[] = data?.cast || [].slice(0, 20);
   const crewData: Crew[] = data?.crew || [];
   const creditData = [...castingData, ...crewData].slice(0, 20);
 
@@ -29,34 +20,34 @@ const MovieCreditsComponent = ({ data }: MovieCreditsComponentProps) => {
       </div>
       <ScrollXLayout>
         <div className="flex space-x-4 ">
-          {creditData.map((item) => {
-              return (
-                <Link key={item.id} to={`/credits/${item.id}`}>
+          {castingData.map((item, index) => {
+            return (
+              <Link key={index} to={`/credits/${item.id}`}>
+                {isLoading ? (
+                  <LoaderCircle className="animate-spin" />
+                ) : (
                   <div className="space-y-1 ">
                     <div className="min-w-[100px] md:min-w-[150px] flex justify-center items-center bg-black bg-opacity-20">
-                      {isLoading ? (
-                        <LoaderCircle className="animate-spin" />
-                      ) : (
-                        <img
-                          src={`https://image.tmdb.org/t/p/w500${item.profile_path}`}
-                          alt="poster_movie"
-                        />
-                      )}
+                      <img
+                        src={`https://image.tmdb.org/t/p/w500${item.profile_path}`}
+                        alt="poster_movie"
+                        loading="lazy"
+                      />
                     </div>
                     <div className="space-y-1">
                       <p className="font-bold">{item.name}</p>
-                      {/* <p>
-                        {new Date(item.release_date).getFullYear().toString()}
-                      </p> */}
+                      <p className="text-xs">{item.known_for_department}</p>
+                      <p className="text-xs">{item.character}</p>
                     </div>
                   </div>
-                </Link>
-              );
-            })}
+                )}
+              </Link>
+            );
+          })}
         </div>
       </ScrollXLayout>
     </div>
-   );
-}
- 
+  );
+};
+
 export default MovieCreditsComponent;
