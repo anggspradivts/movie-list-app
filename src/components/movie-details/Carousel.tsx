@@ -28,7 +28,13 @@ const CarouselMovie = ({ data }: CarouselMovieProps) => {
             />
           </div>
           <div className="space-y-4">
-            <p className="text-lg font-bold">{data?.title}</p>
+            <div className="flex space-x-2">
+              <p className="text-lg font-bold">{data?.title}</p>
+              <p className="text-lg font-bold">
+                
+                {`[${new Date(data?.release_date || "").getFullYear()}]`}
+              </p>
+            </div>
             <p>{data?.overview}</p>
             <span>{}</span>
             <div className="flex space-x-2">
