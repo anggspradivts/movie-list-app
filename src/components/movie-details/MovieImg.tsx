@@ -3,7 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-interface movieImageProps {
+interface MovieImageProps {
   movie: MovieProps;
   backdrops: { file_path: string }[];
 }
@@ -13,25 +13,25 @@ interface MovieImageComponentProps {
 const MovieImageComponent = ({ movieId }: MovieImageComponentProps) => {
   const [imageOverlay, setImageOverlay] = useState<boolean>(false);
   const imagesOverlay = useRef<HTMLDivElement | null>(null);
-  const fetchData = async () => {
-    const res = await fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}/images`,
-      {
-        method: "GET",
-        headers: {
-          "Content-type": "application/json",
-          Authorization: `Bearer ${process.env.API_READ_ACCESS_TOKEN}`,
-        },
-      }
-    );
-    const data = await res.json();
-    return data as movieImageProps;
-  };
+  const [movieImages, setMovieImages] = useState<MovieImageProps | null>(null)
 
-  const { data } = useQuery({
-    queryKey: ["MOVIE_IMG"],
-    queryFn: fetchData,
-  });
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetch(
+        `https://api.themoviedb.org/3/movie/${movieId}/images`,
+        {
+          method: "GET",
+          headers: {
+            "Content-type": "application/json",
+            Authorization: `Bearer ${process.env.API_READ_ACCESS_TOKEN}`,
+          },
+        }
+      );
+      const data = await res.json();
+      setMovieImages(data)
+    };
+    fetchData();
+  }, [movieId])
 
   const handleClickOutside = (event: MouseEvent) => {
     // Check if the click was outside the overlay
@@ -53,8 +53,8 @@ const MovieImageComponent = ({ movieId }: MovieImageComponentProps) => {
     };
   }, []);
 
-  const slicedMovieImage = data?.backdrops.map((item) => item).slice(0, 3);
-  const totalMovieImage = data?.backdrops.map((item) => item);
+  const slicedMovieImage = movieImages?.backdrops.map((item) => item).slice(0, 3);
+  const totalMovieImage = movieImages?.backdrops.map((item) => item);
 
   return (
     <div className="h-[400px] mx-[20px] md:mx-[100px] lg:mx-[200px]">
@@ -94,7 +94,7 @@ const MovieImageComponent = ({ movieId }: MovieImageComponentProps) => {
                 onClick={() => setImageOverlay(true)}
                 className="h-full w-full text-white"
               >
-                {"+" + data?.backdrops.length}
+                {"+" + movieImages?.backdrops.length}
               </button>
             </div>
           </div>
