@@ -8,7 +8,7 @@ const MovieVideoComponent = ({ data }: MovieVideoComponentProps) => {
 
   return (
     <div className="flex justify-center mx-[20px] md:mx-[100px] lg:mx-[200px] mt-10">
-      <div className="w-full h-[400px] lg:h-[600px]">
+      <div className="w-full h-[200px] lg:h-[400px]">
         <iframe
           width="100%"
           height="100%"
