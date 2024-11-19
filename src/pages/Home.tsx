@@ -1,30 +1,18 @@
-import { MovieProps } from "@/types/movie";
 import { useQuery } from "@tanstack/react-query";
-
 import TopMoviesComponent from "@/components/homepage/TopMovies";
 import CarouselComponent from "@/components/homepage/Carousel";
 import FilterSec from "@/components/homepage/FilterSec";
+import { fetchData } from "@/utils/fetchData";
+import { MovieDetailsProps } from "@/types/movie-details";
 
 const HomePage = () => {
-  const fetchData = async () => {
-    const res = await fetch("https://api.themoviedb.org/3/movie/popular?language=en-US&page=1", {
-      method: "GET",
-      headers: {
-        "Content-type": "application/json",
-        Authorization: `Bearer ${process.env.API_READ_ACCESS_TOKEN}`,
-      },
-    });
-    const data = await res.json();
-    
-    return data.results as MovieProps[] //return top movies page 1
-  };
-
-  const { data, isLoading } = useQuery({
+  const { data, isLoading } = useQuery<MovieDetailsProps[]>({
     queryKey: ["MOVIE"],
-    queryFn: () => fetchData(),
+    queryFn: () => fetchData({
+      method: "GET",
+      apiEndpoint: `https://api.themoviedb.org/3/movie/popular?language=en-US&page=1`
+    }),
   });
-
-  console.log(data)
 
   if (!data) {
     return <div>No data</div>

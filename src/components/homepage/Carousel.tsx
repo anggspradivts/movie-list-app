@@ -7,11 +7,11 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "../ui/carousel";
-import { MovieProps } from "@/types/movie";
 import { useNavigate } from "react-router-dom";
+import { MovieDetailsProps } from "@/types/movie-details";
 
 interface CarouselProps {
-  data: MovieProps[];
+  data: MovieDetailsProps[];
 }
 const CarouselComponent = ({ data }: CarouselProps) => {
   const navigate = useNavigate()

@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { MovieProps } from "@/types/movie";
+import { fetchData } from "@/utils/fetchData";
 import { useQuery } from "@tanstack/react-query";
 import { X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
@@ -16,21 +16,14 @@ const MovieImageComponent = ({ movieId }: MovieImageComponentProps) => {
   const [movieImages, setMovieImages] = useState<MovieImageProps | null>(null);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch(
-        `https://api.themoviedb.org/3/movie/${movieId}/images`,
-        {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json",
-            Authorization: `Bearer ${process.env.API_READ_ACCESS_TOKEN}`,
-          },
-        }
-      );
-      const data: MovieImageProps = await res.json();
-      setMovieImages(data);
-    };
-    fetchData();
+    const triggerFetchData = async () => {
+      const data = await fetchData({
+        method: "GET",
+        apiEndpoint: `https://api.themoviedb.org/3/movie/${movieId}/images`
+      });
+      setMovieImages(data)
+    }
+    triggerFetchData()
   }, [movieId]);
 
   const handleClickOutside = (event: MouseEvent) => {
