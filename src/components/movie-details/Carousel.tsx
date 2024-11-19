@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
-import { MovieDetailsProps } from "@/types/movie-details";
+import { Genre, MovieDetailsProps } from "@/types/movie-details";
+import { NavLink } from "react-router-dom";
 
 interface CarouselMovieProps {
   data: MovieDetailsProps | undefined;
@@ -31,16 +32,34 @@ const CarouselMovie = ({ data }: CarouselMovieProps) => {
             <div className="flex space-x-2">
               <p className="text-lg font-bold">{data?.title}</p>
               <p className="text-lg font-bold">
-                
                 {`[${new Date(data?.release_date || "").getFullYear()}]`}
               </p>
             </div>
             <p>{data?.overview}</p>
-            <span>{}</span>
-            <div className="flex space-x-2">
-              <button className="bg-submain2 bg-opacity-40 text-white p-3 px-5 rounded-full shadow-md">
+            <div className="flex space-x-3 md:space-x-5">
+              {/* <button className="bg-submain2 bg-opacity-40 text-white p-3 px-5 rounded-full shadow-md">
                 View Trailer
-              </button>
+              </button> */}
+              <div>
+                <p className="font-bold">Genres:</p>
+                <div className="flex">
+                  {data?.genres.map((genre: Genre, index) => (
+                    <NavLink key={index} to={`/genres/${genre.name}`}>
+                      <p>
+                        {genre.name}
+                        {index < data.genres.length - 1 && ","}{" "}
+                      </p>
+                    </NavLink>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <p className="font-bold">Rating:</p>
+                <span>
+                  {data && Math.floor(data.vote_average * 10) / 10} / 10{" "}
+                  <span>⭐</span>{" "}
+                </span>
+              </div>
             </div>
           </div>
         </div>

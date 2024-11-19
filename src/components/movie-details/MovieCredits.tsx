@@ -1,14 +1,17 @@
 import { Cast, Crew, MovieCredits } from "@/types/movie-credits";
 import ScrollXLayout from "../layouts/ScrollXlayout";
 import { Link } from "react-router-dom";
-import { LoaderCircle } from "lucide-react";
+import { ArrowBigRight, LoaderCircle } from "lucide-react";
 import { useEffect, useState } from "react";
 
 interface MovieCreditsComponentProps {
   data: MovieCredits | undefined;
   isLoading: boolean;
 }
-const MovieCreditsComponent = ({ data, isLoading }: MovieCreditsComponentProps) => {
+const MovieCreditsComponent = ({
+  data,
+  isLoading,
+}: MovieCreditsComponentProps) => {
   const castingData: Cast[] = data?.cast || [].slice(0, 20);
   const crewData: Crew[] = data?.crew || [];
   const creditData = [...castingData, ...crewData].slice(0, 20);
@@ -19,22 +22,29 @@ const MovieCreditsComponent = ({ data, isLoading }: MovieCreditsComponentProps) 
         <h1 className="text-2xl font-bold">Credits</h1>
       </div>
       <ScrollXLayout>
-        <div className="flex space-x-4 ">
+        <div className="flex space-x-4 h-full">
           {castingData.map((item, index) => {
             return (
               <Link key={index} to={`/credits/${item.id}`}>
                 {isLoading ? (
                   <LoaderCircle className="animate-spin" />
                 ) : (
-                  <div className="space-y-1 ">
-                    <div className="min-w-[100px] md:min-w-[150px] flex justify-center items-center bg-black bg-opacity-20">
-                      <img
-                        src={`https://image.tmdb.org/t/p/w500${item.profile_path}`}
-                        alt="poster_movie"
-                        loading="lazy"
-                      />
+                  <div className="space-y-1 h-full">
+                    <div className="h-4/6 min-w-[200px] md:min-w-[150px] flex justify-center items-center bg-black bg-opacity-20">
+                      {item.profile_path ? (
+                        <img
+                          src={`https://image.tmdb.org/t/p/w500${item.profile_path}`}
+                          alt="poster_movie"
+                          loading="lazy"
+                          className="object-cover"
+                        />
+                      ) : (
+                        <div className="">
+                          No image provided
+                        </div>
+                      )}
                     </div>
-                    <div className="space-y-1">
+                    <div className="space-y-1 h-2/6">
                       <p className="font-bold">{item.name}</p>
                       <p className="text-xs">{item.known_for_department}</p>
                       <p className="text-xs">{item.character}</p>
@@ -44,6 +54,14 @@ const MovieCreditsComponent = ({ data, isLoading }: MovieCreditsComponentProps) 
               </Link>
             );
           })}
+          <div className="min-w-[100px] md:min-w-[150px] ">
+            <p className="flex p-5 bg-black bg-opacity-10 shadow-2xl">
+              Lihat Lebih{" "}
+              <span>
+                <ArrowBigRight />
+              </span>
+            </p>
+          </div>
         </div>
       </ScrollXLayout>
     </div>

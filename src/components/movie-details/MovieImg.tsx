@@ -28,7 +28,6 @@ const MovieImageComponent = ({ movieId }: MovieImageComponentProps) => {
         }
       );
       const data: MovieImageProps = await res.json();
-      console.log("dataa", data);
       setMovieImages(data);
     };
     fetchData();
@@ -47,7 +46,6 @@ const MovieImageComponent = ({ movieId }: MovieImageComponentProps) => {
   useEffect(() => {
     // Add event listener for clicks
     document.addEventListener("mousedown", handleClickOutside);
-
     // Cleanup the event listener on component unmount
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);

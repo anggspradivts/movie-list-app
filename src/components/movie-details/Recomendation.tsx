@@ -1,6 +1,6 @@
 import ScrollXLayout from "../layouts/ScrollXlayout";
 import { Link } from "react-router-dom";
-import { LoaderCircle } from "lucide-react";
+import { ArrowBigRight, LoaderCircle } from "lucide-react";
 import { useState } from "react";
 import { MovieDetailsProps } from "@/types/movie-details";
 
@@ -42,6 +42,14 @@ const RecomendationSec = ({ data }: RecomendationSecProps) => {
                 </Link>
               );
             })}
+            <div className="min-w-[100px] md:min-w-[150px]">
+            <p className="flex p-5 bg-black bg-opacity-10 shadow-2xl">
+              Lihat Lebih{" "}
+              <span>
+                <ArrowBigRight />
+              </span>
+            </p>
+          </div>
         </div>
       </ScrollXLayout>
     </div>

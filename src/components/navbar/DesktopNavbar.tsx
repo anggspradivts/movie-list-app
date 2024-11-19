@@ -3,6 +3,7 @@ import { Switch } from "../ui/switch";
 import { MoonIcon, SunIcon } from "@radix-ui/react-icons";
 import SearchbarComponent from "../Searchbar";
 import { NavLink } from "react-router-dom";
+import UserAvatarComponent from "./UserAvatar";
 interface DesktopNavbarProps {
   isDarkMode: boolean;
   toggleDarkMode: () => void;
@@ -21,6 +22,7 @@ const DesktopNavbar = ({ toggleDarkMode, isDarkMode }: DesktopNavbarProps) => {
       </div>
       <div className="flex w-full space-x-5 items-center">
         <SearchbarComponent />
+        <UserAvatarComponent />
         <div className="flex flex-col space-y-1 items-center">
           <Switch onCheckedChange={toggleDarkMode} checked={isDarkMode} />
           <label htmlFor="darkmode" className="text-[0.8rem]">
