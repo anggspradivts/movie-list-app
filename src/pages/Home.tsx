@@ -6,8 +6,8 @@ import { fetchData } from "@/utils/fetchData";
 import { MovieDetailsProps } from "@/types/movie-details";
 
 const HomePage = () => {
-  const { data, isLoading } = useQuery<MovieDetailsProps[]>({
-    queryKey: ["MOVIE"],
+  const { data, isLoading } = useQuery<{ results: MovieDetailsProps[] }>({
+    queryKey: ["MOVIE_POPULAR"],
     queryFn: () => fetchData({
       method: "GET",
       apiEndpoint: `https://api.themoviedb.org/3/movie/popular?language=en-US&page=1`

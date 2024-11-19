@@ -1,15 +1,14 @@
-import { MovieProps } from "@/types/movie";
 import { Link } from "react-router-dom";
 import { LoaderCircle } from "lucide-react";
 import ScrollXLayout from "../layouts/ScrollXlayout";
 import { MovieDetailsProps } from "@/types/movie-details";
 
 interface TopMoviesProps {
-  data: MovieDetailsProps[];
+  data: { results: MovieDetailsProps[] };
   isLoading: boolean;
 }
 const TopMoviesComponent = ({ data, isLoading }: TopMoviesProps) => {
-  const slicedData = data && data.slice(0, 10);
+  const slicedData = Array.isArray(data.results) ? data.results.slice(0, 10) : [];
 
   return (
     <div>
@@ -41,7 +40,7 @@ const TopMoviesComponent = ({ data, isLoading }: TopMoviesProps) => {
                   <div className="space-y-1">
                     <p className="font-bold">{item.title}</p>
                     <p>
-                      {new Date(item.release_date).getFullYear().toString()}
+                      {new Date(item.release_date || "").getFullYear().toString()}
                     </p>
                   </div>
                 </div>

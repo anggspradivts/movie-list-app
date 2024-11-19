@@ -1,6 +1,5 @@
 import { cn } from "@/lib/utils";
 import { fetchData } from "@/utils/fetchData";
-import { useQuery } from "@tanstack/react-query";
 import { X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 

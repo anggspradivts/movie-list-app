@@ -11,7 +11,7 @@ import { useNavigate } from "react-router-dom";
 import { MovieDetailsProps } from "@/types/movie-details";
 
 interface CarouselProps {
-  data: MovieDetailsProps[];
+  data: { results: MovieDetailsProps[] };
 }
 const CarouselComponent = ({ data }: CarouselProps) => {
   const navigate = useNavigate()
@@ -31,7 +31,7 @@ const CarouselComponent = ({ data }: CarouselProps) => {
         onMouseLeave={plugin.current.reset}
       >
         <CarouselContent>
-          {data && Array.isArray(data) && data.map((item, index) => (
+          {data && Array.isArray(data.results) && data.results.map((item, index) => (
             <CarouselItem key={index}>
               <div
                 className="w-full h-[300px] md:h-[500px] bg-cover bg-center"
