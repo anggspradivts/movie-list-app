@@ -1,11 +1,33 @@
 import { cn } from "@/lib/utils";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SearchIcon, X } from "lucide-react";
-import { MovieProps } from "@/types/movie";
+import { MovieDetailsProps } from "@/types/movie-details";
+import { NavLink } from "react-router-dom";
+import { handleClickOutside } from "@/utils/handleClickOutside";
 
 const SearchbarComponent = () => {
   const [keyword, setKeyword] = useState<string | null>("");
-  const [data, setData] = useState<MovieProps[] | null>(null);
+  const [isShowOverlay, setIsShowOverlay] = useState<boolean>(false);
+  const overlayRef = useRef<HTMLInputElement>(null);
+  const [data, setData] = useState<{ results: MovieDetailsProps[] } | null>(
+    null
+  );
+
+  useEffect(() => {
+    const handleClick = (event: MouseEvent) => {
+        handleClickOutside({
+          event,
+          ref: overlayRef,
+          setState: setIsShowOverlay,
+        });
+      }
+
+    document.addEventListener("mousedown", handleClick);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClick);
+    };
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,7 +42,6 @@ const SearchbarComponent = () => {
         }
       );
       const data = await res.json();
-      console.log(data)
       setData(data);
     };
 
@@ -35,6 +56,7 @@ const SearchbarComponent = () => {
   return (
     <div className="relative w-full h-[30px]">
       <input
+        ref={overlayRef}
         type="search"
         name="keyword"
         value={keyword || ""}
@@ -45,18 +67,30 @@ const SearchbarComponent = () => {
           "p-4 w-full h-full border-black border text-black",
           "rounded-lg"
         )}
+        onFocus={() => setIsShowOverlay(true)}
       />
       {!keyword ? (
         <SearchIcon className="absolute top-4 right-2 transform -translate-y-1/2 text-slate-700" />
       ) : (
-        <X onClick={() => setKeyword("")} className="absolute top-4 right-2 transform -translate-y-1/2 text-slate-700"/>
+        <X
+          onClick={() => setKeyword("")}
+          className="absolute top-4 right-2 transform -translate-y-1/2 text-slate-700"
+        />
       )}
-      {keyword && (
-        <div className="absolute left-0 right-0 mt-1 z-[9999] min-h-[50px] rounded-lg bg-white border border-black">
-          {Array.isArray(data) && data.length > 0 ? (
+      {isShowOverlay && (
+        <div
+          className={cn(
+            "absolute left-0 right-0 mt-1 z-[9999] min max-h-[200px] rounded-lg overflow-y-auto px-4",
+            "bg-white border border-black text-black"
+          )}
+          // ref={overlayRef}
+        >
+          {Array.isArray(data?.results) && data.results.length > 0 ? (
             <div className="p-1">
-              {data?.map((item) => (
-                <div className="" key={item.id}></div>
+              {data?.results?.map((item) => (
+                <NavLink key={item.id} to={`/movie/${item.id}`}>
+                  <div className="w-full">{item.title}</div>
+                </NavLink>
               ))}
             </div>
           ) : (

@@ -30,7 +30,7 @@ const MovieCreditsComponent = ({
                   <LoaderCircle className="animate-spin" />
                 ) : (
                   <div className="space-y-1 h-full">
-                    <div className="h-4/6 min-w-[200px] md:min-w-[150px] flex justify-center items-center bg-black bg-opacity-20">
+                    <div className="h-4/6 md:min-w-[140px] flex justify-center items-center bg-black bg-opacity-20 overflow-hidden">
                       {item.profile_path ? (
                         <img
                           src={`https://image.tmdb.org/t/p/w500${item.profile_path}`}

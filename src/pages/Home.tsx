@@ -6,11 +6,12 @@ import { fetchData } from "@/utils/fetchData";
 import { MovieDetailsProps } from "@/types/movie-details";
 
 const HomePage = () => {
+  const filterCategory = localStorage.getItem("category");
   const { data, isLoading } = useQuery<{ results: MovieDetailsProps[] }>({
     queryKey: ["MOVIE_POPULAR"],
     queryFn: () => fetchData({
       method: "GET",
-      apiEndpoint: `https://api.themoviedb.org/3/movie/popular?language=en-US&page=1`
+      apiEndpoint: `https://api.themoviedb.org/3/${filterCategory}/popular?language=en-US&page=1`
     }),
   });
 
@@ -21,7 +22,7 @@ const HomePage = () => {
   return (
     <div className="flex flex-col justify-center px-4 md:px-[50px] lg:px-[100px]">
       <CarouselComponent data={data} />
-      <FilterSec />
+      <FilterSec filterCategory={filterCategory} />
       <TopMoviesComponent data={data} isLoading={isLoading} />
     </div>
    );

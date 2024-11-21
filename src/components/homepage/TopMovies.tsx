@@ -26,18 +26,19 @@ const TopMoviesComponent = ({ data, isLoading }: TopMoviesProps) => {
           {slicedData.map((item, index) => {
             return (
               <Link key={index} to={`/movie/${item.id}`}>
-                <div className="space-y-1 ">
-                  <div className="min-w-[100px] md:min-w-[150px] flex justify-center items-center bg-black bg-opacity-20">
+                <div className="space-y-1 h-full w-[140px]">
+                  <div className="h-4/6  flex justify-center items-center bg-black bg-opacity-20 overflow-hidden">
                     {isLoading ? (
                       <LoaderCircle className="animate-spin" />
                     ) : (
                       <img
                         src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
                         alt="poster_movie"
+                        className="h-full"
                       />
                     )}
                   </div>
-                  <div className="space-y-1">
+                  <div className="space-y-1 h-2/6 overflow-hidden">
                     <p className="font-bold">{item.title}</p>
                     <p>
                       {new Date(item.release_date || "").getFullYear().toString()}
