@@ -83,7 +83,7 @@ const SearchbarComponent = () => {
             "absolute left-0 right-0 mt-1 z-[9999] min max-h-[200px] rounded-lg overflow-y-auto px-4",
             "bg-white border border-black text-black"
           )}
-          // ref={overlayRef}
+          ref={overlayRef}
         >
           {Array.isArray(data?.results) && data.results.length > 0 ? (
             <div className="p-1">

@@ -5,7 +5,7 @@ import { useState } from "react";
 import { MovieDetailsProps } from "@/types/movie-details";
 
 interface RecomendationSecProps {
-  data: { results: MovieDetailsProps[] } | undefined
+  data: { results: MovieDetailsProps[] } | undefined;
 }
 const RecomendationSec = ({ data }: RecomendationSecProps) => {
   const [isLoading, setIsLoading] = useState();
@@ -15,34 +15,43 @@ const RecomendationSec = ({ data }: RecomendationSecProps) => {
         <h1 className="text-2xl font-bold">Recomendations</h1>
       </div>
       <ScrollXLayout>
-        <div className="flex space-x-4 ">
+        <div className="flex space-x-4 h-full">
           {data &&
-            
-            data.results.map((item) => {
+            data.results.map((item, index) => {
               return (
-                <Link key={item.id} to={`/movie/${item.id}`}>
-                  <div className="space-y-1 ">
-                    <div className="min-w-[100px] md:min-w-[150px] flex justify-center items-center bg-black bg-opacity-20">
-                      {isLoading ? (
-                        <LoaderCircle className="animate-spin" />
-                      ) : (
-                        <img
-                          src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-                          alt="poster_movie"
-                        />
-                      )}
+                <Link key={index} to={`/movie/${item.id}`}>
+                  {isLoading ? (
+                    <div className="h-full w-full flex justify-center items-center">
+                      <LoaderCircle className="animate-spin" />
                     </div>
-                    <div className="space-y-1">
-                      <p className="font-bold">{item.title}</p>
-                      <p>
-                        {new Date(item.release_date).getFullYear().toString()}
-                      </p>
+                  ) : (
+                    <div className="space-y-1 h-full min-w-[100px] md:min-w-[150px]">
+                      <div className="h-4/6 w-full flex justify-center items-center bg-black bg-opacity-20 overflow-hidden">
+                        {item.backdrop_path ? (
+                          <img
+                            src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
+                            alt="poster_movie"
+                            loading="lazy"
+                            className="object-cover h-full w-full relative"
+                          />
+                        ) : (
+                          <div className="">No image provided</div>
+                        )}
+                      </div>
+                      <div className="space-y-1 h-2/6">
+                        <p className="font-bold">{item.title}</p>
+                        <p>
+                          {new Date(item.release_date || "")
+                            .getFullYear()
+                            .toString()}
+                        </p>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </Link>
               );
             })}
-            <div className="min-w-[100px] md:min-w-[150px]">
+          <div className="min-w-[100px] md:min-w-[150px] ">
             <p className="flex p-5 bg-black bg-opacity-10 shadow-2xl">
               Lihat Lebih{" "}
               <span>

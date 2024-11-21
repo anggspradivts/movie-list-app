@@ -4,11 +4,12 @@ import CarouselComponent from "@/components/homepage/Carousel";
 import FilterSec from "@/components/homepage/FilterSec";
 import { fetchData } from "@/utils/fetchData";
 import { MovieDetailsProps } from "@/types/movie-details";
+import { useEffect } from "react";
 
 const HomePage = () => {
   const filterCategory = localStorage.getItem("category");
   const { data, isLoading } = useQuery<{ results: MovieDetailsProps[] }>({
-    queryKey: ["MOVIE_POPULAR"],
+    queryKey: ["MOVIE_POPULAR", filterCategory],
     queryFn: () => fetchData({
       method: "GET",
       apiEndpoint: `https://api.themoviedb.org/3/${filterCategory}/popular?language=en-US&page=1`

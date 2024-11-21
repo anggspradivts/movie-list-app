@@ -22,38 +22,39 @@ const MovieCreditsComponent = ({
         <h1 className="text-2xl font-bold">Credits</h1>
       </div>
       <ScrollXLayout>
+        
         <div className="flex space-x-4 h-full">
           {castingData.map((item, index) => {
-            return (
-              <Link key={index} to={`/credits/${item.id}`}>
-                {isLoading ? (
-                  <LoaderCircle className="animate-spin" />
-                ) : (
-                  <div className="space-y-1 h-full">
-                    <div className="h-4/6 md:min-w-[140px] flex justify-center items-center bg-black bg-opacity-20 overflow-hidden">
-                      {item.profile_path ? (
-                        <img
-                          src={`https://image.tmdb.org/t/p/w500${item.profile_path}`}
-                          alt="poster_movie"
-                          loading="lazy"
-                          className="object-cover"
-                        />
-                      ) : (
-                        <div className="">
-                          No image provided
-                        </div>
-                      )}
+              return (
+                <Link key={index} to={`/movie/${item.id}`}>
+                  {isLoading ? (
+                    <div className="h-full w-full flex justify-center items-center">
+                      <LoaderCircle className="animate-spin" />
                     </div>
-                    <div className="space-y-1 h-2/6">
-                      <p className="font-bold">{item.name}</p>
-                      <p className="text-xs">{item.known_for_department}</p>
-                      <p className="text-xs">{item.character}</p>
+                  ) : (
+                    <div className="space-y-1 h-full min-w-[100px] md:min-w-[150px]">
+                      <div className="h-4/6 w-full flex justify-center items-center bg-black bg-opacity-20 overflow-hidden">
+                        {item.profile_path ? (
+                          <img
+                            src={`https://image.tmdb.org/t/p/w500${item.profile_path}`}
+                            alt="poster_movie"
+                            loading="lazy"
+                            className="object-cover h-full w-full relative"
+                          />
+                        ) : (
+                          <div className="">No image provided</div>
+                        )}
+                      </div>
+                      <div className="space-y-1 h-2/6">
+                        <p className="font-bold">{item.name}</p>
+                        <p className="text-xs">{item.known_for_department}</p>
+                        <p className="text-xs">{item.character}</p>
+                      </div>
                     </div>
-                  </div>
-                )}
-              </Link>
-            );
-          })}
+                  )}
+                </Link>
+              );
+            })}
           <div className="min-w-[100px] md:min-w-[150px] ">
             <p className="flex p-5 bg-black bg-opacity-10 shadow-2xl">
               Lihat Lebih{" "}
