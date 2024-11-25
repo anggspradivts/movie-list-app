@@ -1,20 +1,11 @@
 import { cn } from "@/lib/utils";
-import { fetchData } from "@/utils/fetchData";
-import { useQuery } from "@tanstack/react-query";
+import { SetStateAction } from "react";
 
 interface FilterCategoryProps {
-  filterCategory: string | null;
+  filterState: string;
+  setFilterState: React.Dispatch<SetStateAction<string>>
 }
-const FilterSec = ({ filterCategory }: FilterCategoryProps) => {
-  const { refetch } = useQuery({
-    queryKey: ["MOVIE_CATEGORY", filterCategory],
-    queryFn: () =>
-      fetchData({
-        method: "GET",
-        apiEndpoint: `https://api.themoviedb.org/3/${filterCategory}/popular?language=en-US&page=1`,
-      }),
-  });
-
+const FilterSec = ({ setFilterState, filterState }: FilterCategoryProps) => {
   const filterBtn = [
     {
       name: "TV",
@@ -24,15 +15,10 @@ const FilterSec = ({ filterCategory }: FilterCategoryProps) => {
       name: "Movie",
       category: "movie",
     },
-    {
-      name: "All",
-      category: "all",
-    },
   ];
 
-  const handleClick = (category: string) => {
-    localStorage.setItem("category", category);
-    refetch();
+  const handleStateClick = (state: string) => {
+    setFilterState(state)
   };
 
   return (
@@ -42,19 +28,19 @@ const FilterSec = ({ filterCategory }: FilterCategoryProps) => {
           <button
             key={index}
             className={cn(
-              "font-bold relative h-full w-[70px] bg-black bg-opacity-10 group",
-              { "bg-black bg-opacity-20": filterCategory === item.category }
+              "font-bold relative h-full w-[70px] bg-black bg-opacity-20 group",
+              { "bg-black bg-opacity-100": filterState === item.category }
             )}
-            onClick={() => handleClick(item.category)}
+            onClick={() => handleStateClick(item.category)}
           >
             {item.name}
             <span
               className={cn(
                 "absolute bottom-0 left-0 h-[2px] w-full transition-transform scale-x-0 group-hover:scale-x-100 duration-300 bg-submain2 origin-center",
                 {
-                  "scale-x-100": item.category === filterCategory,
+                  "scale-x-100": item.category === filterState,
                   "scale-x-0 group-hover:scale-x-100":
-                    item.category !== filterCategory,
+                    item.category !== filterState,
                 }
               )}
             ></span>

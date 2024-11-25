@@ -9,9 +9,10 @@ import {
 } from "../ui/carousel";
 import { useNavigate } from "react-router-dom";
 import { MovieDetailsProps } from "@/types/movie-details";
+import { TVDetailsProps } from "@/types/tv-props";
 
 interface CarouselProps {
-  data: { results: MovieDetailsProps[] };
+  data: MovieDetailsProps[] | TVDetailsProps[];
 }
 const CarouselComponent = ({ data }: CarouselProps) => {
   const navigate = useNavigate()
@@ -31,7 +32,7 @@ const CarouselComponent = ({ data }: CarouselProps) => {
         onMouseLeave={plugin.current.reset}
       >
         <CarouselContent>
-          {data && Array.isArray(data.results) && data.results.map((item, index) => (
+          {data && Array.isArray(data) && data.map((item, index) => (
             <CarouselItem key={index}>
               <div
                 className="w-full h-[300px] md:h-[500px] bg-cover bg-center"
@@ -48,7 +49,7 @@ const CarouselComponent = ({ data }: CarouselProps) => {
                         className="h-[200px] w-[150px]"
                       />
                     </div>
-                    <h1 className="font-black text-[2rem]">{item.title}</h1>
+                    <h1 className="font-black text-[2rem]">{"title" in item ? item.title : item.name}</h1>
                     <p className="text-[0.5rem] md:text-base">
                       {item.overview}
                     </p>
