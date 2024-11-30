@@ -19,7 +19,7 @@ const CarouselComponent = ({ data }: CarouselProps) => {
   const plugin = React.useRef(
     Autoplay({ delay: 6000, stopOnInteraction: true })
   );
-
+  console.log(data)
   return (
     <div
       className="flex w-full justify-center px-[30px] lg:px-0"
@@ -33,8 +33,8 @@ const CarouselComponent = ({ data }: CarouselProps) => {
       >
         <CarouselContent>
           {data &&
-            Array.isArray(data) &&
-            data.map((item, index) => (
+            Array.isArray(data.results) &&
+            data.results.map((item, index) => (
               <CarouselItem key={index}>
                 <div
                   className="w-full h-[300px] md:h-[500px] bg-cover bg-center"
