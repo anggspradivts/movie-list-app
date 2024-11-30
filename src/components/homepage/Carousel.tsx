@@ -12,10 +12,10 @@ import { MovieDetailsProps } from "@/types/movie-details";
 import { TVDetailsProps } from "@/types/tv-props";
 
 interface CarouselProps {
-  data: MovieDetailsProps[] | TVDetailsProps[];
+  data: { results: MovieDetailsProps[] } | { results: TVDetailsProps[] } | undefined;
 }
 const CarouselComponent = ({ data }: CarouselProps) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const plugin = React.useRef(
     Autoplay({ delay: 6000, stopOnInteraction: true })
   );
@@ -32,40 +32,47 @@ const CarouselComponent = ({ data }: CarouselProps) => {
         onMouseLeave={plugin.current.reset}
       >
         <CarouselContent>
-          {data && Array.isArray(data) && data.map((item, index) => (
-            <CarouselItem key={index}>
-              <div
-                className="w-full h-[300px] md:h-[500px] bg-cover bg-center"
-                style={{
-                  backgroundImage: `url(https://image.tmdb.org/t/p/w500${item.backdrop_path})`,
-                }}
-              >
-                <div className="flex justify-end items-center h-full w-full bg-black text-white bg-opacity-70 backdrop-blur-sm">
-                  <div className="flex flex-col space-y-3 p-[30px] lg:px-[200px] items-end text-end">
-                    <div className="hidden lg:block">
-                      <img
-                        src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-                        alt="poster_movie"
-                        className="h-[200px] w-[150px]"
-                      />
-                    </div>
-                    <h1 className="font-black text-[2rem]">{"title" in item ? item.title : item.name}</h1>
-                    <p className="text-[0.5rem] md:text-base">
-                      {item.overview}
-                    </p>
-                    <div className="flex gap-2 text-[0.5rem] md:text-[1rem]">
-                      <button className="bg-black bg-opacity-40 text-white p-3 px-5 rounded-full shadow-md">
-                        View Trailer
-                      </button>
-                      <button onClick={() => navigate(`/movie/${item.id}`)} className="bg-submain2 bg-opacity-40 text-white p-3 px-5 rounded-full shadow-md">
-                        View More
-                      </button>
+          {data &&
+            Array.isArray(data) &&
+            data.map((item, index) => (
+              <CarouselItem key={index}>
+                <div
+                  className="w-full h-[300px] md:h-[500px] bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url(https://image.tmdb.org/t/p/w500${item.backdrop_path})`,
+                  }}
+                >
+                  <div className="flex justify-end items-center h-full w-full bg-black text-white bg-opacity-70 backdrop-blur-sm">
+                    <div className="flex flex-col space-y-3 p-[30px] lg:px-[200px] items-end text-end">
+                      <div className="hidden lg:block">
+                        <img
+                          src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                          alt="poster_movie"
+                          className="h-[200px] w-[150px]"
+                        />
+                      </div>
+                      <h1 className="font-black text-[2rem]">
+                        {"title" in item ? item.title : item.name}
+                      </h1>
+                      <p className="text-[0.5rem] md:text-base">
+                        {item.overview}
+                      </p>
+                      <div className="flex gap-2 text-[0.5rem] md:text-[1rem]">
+                        <button className="bg-black bg-opacity-40 text-white p-3 px-5 rounded-full shadow-md">
+                          View Trailer
+                        </button>
+                        <button
+                          onClick={() => navigate(`/movie/${item.id}`)}
+                          className="bg-submain2 bg-opacity-40 text-white p-3 px-5 rounded-full shadow-md"
+                        >
+                          View More
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </CarouselItem>
-          ))}
+              </CarouselItem>
+            ))}
         </CarouselContent>
         <CarouselPrevious />
         <CarouselNext />

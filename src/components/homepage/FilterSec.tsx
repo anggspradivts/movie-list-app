@@ -8,12 +8,12 @@ interface FilterCategoryProps {
 const FilterSec = ({ setFilterState, filterState }: FilterCategoryProps) => {
   const filterBtn = [
     {
-      name: "TV",
-      category: "tv",
-    },
-    {
       name: "Movie",
       category: "movie",
+    },
+    {
+      name: "TV",
+      category: "tv",
     },
   ];
 

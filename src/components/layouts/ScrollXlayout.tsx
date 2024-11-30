@@ -24,13 +24,13 @@ const ScrollXLayout = ({ children }: ScrollXLayoutProps) => {
   };
   return ( 
     <div className="relative">
-      <div ref={scrollRef} className="overflow-x-auto h-[200px] md:h-[300px]">
+      <div ref={scrollRef} className="overflow-x-auto h-[200px] md:h-[300px] scrollbar-hidden">
         {children}
       </div>
-      <button onClick={() => handleScroll("left")} className="absolute text-white bg-black bg-opacity-70 rounded bottom-1/2 left-0 p-[10px] md:p-[20px] ml-1">
+      <button onClick={() => handleScroll("left")} className="absolute text-white bg-black bg-opacity-70 rounded bottom-1/2 left-0 p-[10px] ml-1 z-[2000]">
         <ChevronLeft />
       </button>
-      <button onClick={() => handleScroll("right")} className="absolute text-white bg-black bg-opacity-70 rounded bottom-1/2 right-0 p-[10px] md:p-[20px] mr-1">
+      <button onClick={() => handleScroll("right")} className="absolute text-white bg-black bg-opacity-70 rounded bottom-1/2 right-0 p-[10px] mr-1 z-[2000]">
         <ChevronRight />
       </button>
     </div>

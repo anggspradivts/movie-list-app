@@ -43,7 +43,7 @@ const CarouselMovie = ({ data }: CarouselMovieProps) => {
               <div>
                 <p className="font-bold">Genres:</p>
                 <div className="flex">
-                  {data?.genres.map((genre: Genre, index) => (
+                  {data && data?.genres.map((genre: Genre, index) => (
                     <NavLink key={index} to={`/genres/${genre.name}`}>
                       <p>
                         {genre.name}
