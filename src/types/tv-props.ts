@@ -34,13 +34,13 @@ export type TVDetailsProps = {
   vote_count: number;
 }
 
-interface Spokenlanguage {
+export type Spokenlanguage = {
   english_name: string;
   iso_639_1: string;
   name: string;
 }
 
-interface Season {
+export type Season = {
   air_date: string;
   episode_count: number;
   id: number;
@@ -51,19 +51,19 @@ interface Season {
   vote_average: number;
 }
 
-interface Productioncountry {
+export type Productioncountry = {
   iso_3166_1: string;
   name: string;
 }
 
-interface Network {
+export type Network = {
   id: number;
   logo_path: string;
   name: string;
   origin_country: string;
 }
 
-interface Lastepisodetoair {
+export type Lastepisodetoair = {
   id: number;
   name: string;
   overview: string;
@@ -79,7 +79,7 @@ interface Lastepisodetoair {
   still_path: null;
 }
 
-interface Genre {
+export type Genre = {
   id: number;
   name: string;
 }

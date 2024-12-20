@@ -14,19 +14,20 @@ const MovieImageComponent = ({ movieId }: MovieImageComponentProps) => {
   const imagesOverlay = useRef<HTMLDivElement | null>(null);
   const [movieImages, setMovieImages] = useState<MovieImageProps | null>(null);
 
+  console.log(movieImages);
+
   useEffect(() => {
     const triggerFetchData = async () => {
       const data = await fetchData({
         method: "GET",
-        apiEndpoint: `https://api.themoviedb.org/3/movie/${movieId}/images`
+        apiEndpoint: `https://api.themoviedb.org/3/movie/${movieId}/images`,
       });
-      setMovieImages(data)
-    }
-    triggerFetchData()
+      setMovieImages(data);
+    };
+    triggerFetchData();
   }, [movieId]);
 
   const handleClickOutside = (event: MouseEvent) => {
-    // Check if the click was outside the overlay
     if (
       imagesOverlay.current &&
       !imagesOverlay.current.contains(event.target as Node)
@@ -36,9 +37,7 @@ const MovieImageComponent = ({ movieId }: MovieImageComponentProps) => {
   };
 
   useEffect(() => {
-    // Add event listener for clicks
     document.addEventListener("mousedown", handleClickOutside);
-    // Cleanup the event listener on component unmount
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
@@ -115,7 +114,6 @@ const MovieImageComponent = ({ movieId }: MovieImageComponentProps) => {
                 <div className="images-container">
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
                     {totalMovieImage?.map((item, index) => {
-                      // const [isLoading, setIsLoading] = useState(true)
                       return (
                         <div
                           key={index}
@@ -126,7 +124,6 @@ const MovieImageComponent = ({ movieId }: MovieImageComponentProps) => {
                             src={`https://image.tmdb.org/t/p/w500${item.file_path}`}
                             alt=""
                             loading="lazy"
-                            // onLoad={() => setIsLoading(false)}
                           />
                         </div>
                       );

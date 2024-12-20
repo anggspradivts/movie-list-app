@@ -1,14 +1,15 @@
 import ScrollXLayout from "../layouts/ScrollXlayout";
 import { Link } from "react-router-dom";
-import { ArrowBigRight, LoaderCircle } from "lucide-react";
-import { useState } from "react";
+import { ArrowBigRight } from "lucide-react";
 import { MovieDetailsProps } from "@/types/movie-details";
+import { SkeletonCard } from "../ui/skeleton-card";
 
 interface RecomendationSecProps {
   data: { results: MovieDetailsProps[] } | undefined;
+  isLoading: boolean
 }
-const RecomendationSec = ({ data }: RecomendationSecProps) => {
-  const [isLoading, setIsLoading] = useState();
+const RecomendationSec = ({ data, isLoading }: RecomendationSecProps) => {
+  
   return (
     <div className="mx-[20px] md:mx-[100px] lg:mx-[200px]">
       <div className="py-[30px]">
@@ -21,11 +22,9 @@ const RecomendationSec = ({ data }: RecomendationSecProps) => {
               return (
                 <Link key={index} to={`/movie/${item.id}`}>
                   {isLoading ? (
-                    <div className="h-full w-full flex justify-center items-center">
-                      <LoaderCircle className="animate-spin" />
-                    </div>
+                    <SkeletonCard />
                   ) : (
-                    <div className="space-y-1 h-full min-w-[100px] md:min-w-[150px]">
+                    <div className="space-y-1 h-[200px] md:h-[300px] min-w-[100px] md:min-w-[150px]">
                       <div className="h-4/6 w-full flex justify-center items-center bg-black bg-opacity-20 overflow-hidden">
                         {item.backdrop_path ? (
                           <img

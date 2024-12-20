@@ -62,7 +62,8 @@ const TrendingComponent = ({
                   : item.name;
 
               return (
-                <Link key={index} to={`/movie/${item.id}`}>
+                //"title" in item is used for check if it is a movie or tv
+                <Link key={index} to={`/${"title" in item ? "movie" : "tv"}/${item.id}`}>
                   {isLoading ? (
                     <div className="h-full w-full flex justify-center items-center rounded">
                       <LoaderCircle className="animate-spin" />

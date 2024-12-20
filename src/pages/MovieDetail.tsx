@@ -8,16 +8,14 @@ import { MovieDetailsProps } from "@/types/movie-details";
 import { MovieVideoProps } from "@/types/movie-video";
 import { fetchData } from "@/utils/fetchData";
 import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import { Navigate, useParams } from "react-router-dom";
 
 const MovieDetailPage = () => {
   const { movieId } = useParams<{ movieId: string }>();
 
-  const {
-    data: movieDetails,
-    isLoading: isLoadingDetails,
-    isError: isErrorDetails,
-  } = useQuery<MovieDetailsProps>({
+  if (!movieId) return <Navigate to={"/not-found"} />;
+
+  const { data: movieDetails } = useQuery<MovieDetailsProps>({
     queryKey: ["MOVIE_DETAILS", movieId],
     // queryFn: () => fetchMovieDetails(movieId!),
     queryFn: () =>
@@ -51,23 +49,22 @@ const MovieDetailPage = () => {
       enabled: !!movieId,
     });
 
-  const { data: movieVideo, isLoading: isLoadingVideo } =
-    useQuery<MovieVideoProps>({
-      queryKey: ["MOVIE_VIDEO", movieId],
-      queryFn: () =>
-        fetchData({
-          method: "GET",
-          apiEndpoint: `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`,
-        }),
-      enabled: !!movieId,
-    });
+  const { data: movieVideo } = useQuery<MovieVideoProps>({
+    queryKey: ["MOVIE_VIDEO", movieId],
+    queryFn: () =>
+      fetchData({
+        method: "GET",
+        apiEndpoint: `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`,
+      }),
+    enabled: !!movieId,
+  });
 
   return (
     <div>
       <CarouselMovie data={movieDetails} />
       <MovieVideoComponent data={movieVideo} />
       <MovieImageComponent movieId={movieId} />
-      <RecomendationSec data={movieRecomendations} />
+      <RecomendationSec data={movieRecomendations} isLoading={isLoadingRec} />
       <MovieCreditsComponent data={movieCredits} isLoading={isLoadingCredits} />
     </div>
   );

@@ -6,7 +6,6 @@ interface CarouselMovieProps {
   data: MovieDetailsProps | undefined;
 }
 const CarouselMovie = ({ data }: CarouselMovieProps) => {
-  console.log(data);
   return (
     <div
       className="h-[500px] w-full bg-cover bg-center shadow-lg text-white shadow-submain2"
@@ -37,17 +36,14 @@ const CarouselMovie = ({ data }: CarouselMovieProps) => {
             </div>
             <p>{data?.overview}</p>
             <div className="flex space-x-3 md:space-x-5">
-              {/* <button className="bg-submain2 bg-opacity-40 text-white p-3 px-5 rounded-full shadow-md">
-                View Trailer
-              </button> */}
               <div>
                 <p className="font-bold">Genres:</p>
                 <div className="flex">
-                  {data && data?.genres.map((genre: Genre, index) => (
+                  {data?.genres && data?.genres.map((genre: Genre, index) => (
                     <NavLink key={index} to={`/genres/${genre.name}`}>
                       <p>
                         {genre.name}
-                        {index < data.genres.length - 1 && ","}{" "}
+                        {data.genres && index < data.genres.length - 1 && ","}{" "}
                       </p>
                     </NavLink>
                   ))}
@@ -56,7 +52,7 @@ const CarouselMovie = ({ data }: CarouselMovieProps) => {
               <div>
                 <p className="font-bold">Rating:</p>
                 <span>
-                  {data && Math.floor(data.vote_average * 10) / 10} / 10{" "}
+                  {data?.vote_average && Math.floor(data.vote_average * 10) / 10} / 10{" "}
                   <span>⭐</span>{" "}
                 </span>
               </div>

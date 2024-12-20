@@ -3,7 +3,6 @@ import { fetchData } from "@/utils/fetchData";
 import { MovieDetailsProps } from "@/types/movie-details";
 import { useState } from "react";
 import { TVDetailsProps } from "@/types/tv-props";
-
 import PopularComponent from "@/components/homepage/Popular";
 import CarouselComponent from "@/components/homepage/Carousel";
 import FilterSec from "@/components/homepage/FilterSec";

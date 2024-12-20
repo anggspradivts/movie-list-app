@@ -4,12 +4,17 @@ import ScrollXLayout from "../layouts/ScrollXlayout";
 import { MovieDetailsProps } from "@/types/movie-details";
 import { useEffect, useState } from "react";
 import { TVDetailsProps } from "@/types/tv-props";
+import { SkeletonCard } from "../ui/skeleton-card";
 
 interface PopularProps {
-  data: { results: MovieDetailsProps[] } | { results: TVDetailsProps[] } | undefined;
+  data:
+    | { results: MovieDetailsProps[] }
+    | { results: TVDetailsProps[] }
+    | undefined;
   isLoading: boolean;
 }
 const PopularComponent = ({ data, isLoading }: PopularProps) => {
+  
   return (
     <div>
       <div className="py-[30px] flex justify-between items-center">
@@ -25,14 +30,20 @@ const PopularComponent = ({ data, isLoading }: PopularProps) => {
         <div className="flex space-x-4 h-full ">
           {data &&
             data.results.map((item, index) => {
-              const title = "title" in item ? item.title.length > 25 ? item.title.slice(0, 25) + "..." : item.title : item.name;
+              const title =
+                "title" in item
+                  ? item.title.length > 25
+                    ? item.title.slice(0, 25) + "..."
+                    : item.title
+                  : item.name;
 
               return (
-                <Link key={index} to={`/movie/${item.id}`}>
+                <Link
+                  key={index}
+                  to={`/${"title" in item ? "movie" : "tv"}/${item.id}`}
+                >
                   {isLoading ? (
-                    <div className="h-full w-full flex justify-center items-center rounded">
-                      <LoaderCircle className="animate-spin" />
-                    </div>
+                    <SkeletonCard />
                   ) : (
                     <div className="space-y-1 h-4/6 min-w-[100px] md:min-w-[150px]">
                       <div className="h-full w-full relative flex justify-center items-center bg-black bg-opacity-20 overflow-hidden">
@@ -48,9 +59,7 @@ const PopularComponent = ({ data, isLoading }: PopularProps) => {
                         )}
                       </div>
                       <div className="space-y-1 h-2/6 p-1">
-                        <p className="font-semibold">
-                          {title}
-                        </p>
+                        <p className="font-semibold">{title}</p>
                         {"release_date" in item && (
                           <p>
                             {new Date(item.release_date || "")

@@ -1,41 +1,49 @@
-import { Cast, Crew, MovieCredits } from "@/types/movie-credits";
+import { TVDetailsProps } from "@/types/tv-props";
 import ScrollXLayout from "../layouts/ScrollXlayout";
 import { Link } from "react-router-dom";
 import { ArrowBigRight, LoaderCircle } from "lucide-react";
 
-interface MovieCreditsComponentProps {
-  data: MovieCredits | undefined;
+interface TvReccommendationsComponentProps {
+  data: { results: TVDetailsProps[] } | undefined;
   isLoading: boolean;
 }
-const MovieCreditsComponent = ({
+const TvReccommendationsComponent = ({
   data,
   isLoading,
-}: MovieCreditsComponentProps) => {
-  const castingData: Cast[] = data?.cast || [].slice(0, 20);
-  // const crewData: Crew[] = data?.crew || [];
-  // const creditData = [...castingData, ...crewData].slice(0, 20);
-
+}: TvReccommendationsComponentProps) => {
+  console.log(data);
   return (
     <div className="mx-[20px] md:mx-[100px] lg:mx-[200px]">
       <div className="py-[30px]">
-        <h1 className="text-2xl font-bold">Credits</h1>
+        <h1 className="text-2xl font-bold">Recomendations</h1>
       </div>
       <ScrollXLayout>
-        
         <div className="flex space-x-4 h-full">
-          {castingData.map((item, index) => {
+          {data &&
+            Array.isArray(data.results) &&
+            data.results.map((item, index) => {
+              const tvName =
+                item.name.length > 25
+                  ? item.name.slice(0, 25) + "..."
+                  : item.name;
+
               return (
                 <Link key={index} to={`/movie/${item.id}`}>
                   {isLoading ? (
-                    <div className="h-full w-full flex justify-center items-center">
-                      <LoaderCircle className="animate-spin" />
+                    <div className="h-full min-w-[100px] md:min-w-[150px] space-y-1">
+                      <div className="bg-slate-100 flex justify-center items-center h-4/6">
+                        <LoaderCircle className="animate-spin" />
+                      </div>
+                      {/* <div className="h-2/6 bg-slate flex justify-center items-center bg-slate-100">
+                        <LoaderCircle className="animate-spin" />
+                      </div> */}
                     </div>
                   ) : (
-                    <div className="space-y-1 h-[200px] md:h-[300px] min-w-[100px] md:min-w-[150px]">
+                    <div className="space-y-1 h-full min-w-[100px] md:min-w-[150px]">
                       <div className="h-4/6 w-full flex justify-center items-center bg-black bg-opacity-20 overflow-hidden">
-                        {item.profile_path ? (
+                        {item.backdrop_path ? (
                           <img
-                            src={`https://image.tmdb.org/t/p/w500${item.profile_path}`}
+                            src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
                             alt="poster_movie"
                             loading="lazy"
                             className="object-cover h-full w-full relative"
@@ -45,9 +53,7 @@ const MovieCreditsComponent = ({
                         )}
                       </div>
                       <div className="space-y-1 h-2/6">
-                        <p className="font-bold">{item.name}</p>
-                        <p className="text-xs">{item.known_for_department}</p>
-                        <p className="text-xs">{item.character}</p>
+                        <p className="font-bold">{tvName}</p>
                       </div>
                     </div>
                   )}
@@ -68,4 +74,4 @@ const MovieCreditsComponent = ({
   );
 };
 
-export default MovieCreditsComponent;
+export default TvReccommendationsComponent;

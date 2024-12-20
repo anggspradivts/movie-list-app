@@ -24,7 +24,7 @@ const ScrollXLayout = ({ children }: ScrollXLayoutProps) => {
   };
   return ( 
     <div className="relative">
-      <div ref={scrollRef} className="overflow-x-auto h-[200px] md:h-[300px] scrollbar-hidden">
+      <div ref={scrollRef} className="overflow-x-auto overflow-y-hidden h-auto md:h-auto scrollbar-hidden ">
         {children}
       </div>
       <button onClick={() => handleScroll("left")} className="absolute text-white bg-black bg-opacity-70 rounded bottom-1/2 left-0 p-[10px] ml-1 z-[2000]">
