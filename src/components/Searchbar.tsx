@@ -1,17 +1,15 @@
 import { cn } from "@/lib/utils";
 import { useEffect, useRef, useState } from "react";
-import { SearchIcon, X } from "lucide-react";
 import { MovieDetailsProps } from "@/types/movie-details";
 import { NavLink } from "react-router-dom";
 import { handleClickOutside } from "@/utils/handleClickOutside";
+import { useQuery } from "@tanstack/react-query";
+import { fetchData } from "@/utils/fetchData";
 
 const SearchbarComponent = () => {
   const [keyword, setKeyword] = useState<string | null>("");
   const [isShowOverlay, setIsShowOverlay] = useState<boolean>(false);
   const overlayRef = useRef<HTMLInputElement>(null);
-  const [data, setData] = useState<{ results: MovieDetailsProps[] } | null>(
-    null
-  );
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
@@ -29,35 +27,19 @@ const SearchbarComponent = () => {
     };
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const res = await fetch(
-        `https://api.themoviedb.org/3/search/movie?query=${keyword}&include_adult=false&language=en-US&page=1`,
-        {
-          method: "GET",
-          headers: {
-            "Content-type": "application/json",
-            Authorization: `Bearer ${process.env.API_READ_ACCESS_TOKEN}`,
-          },
-        }
-      );
-      const data = await res.json();
-      setData(data);
-    };
-
-    if (keyword) {
-      const delayDebounceFn = setTimeout(() => {
-        fetchData();
-      }, 500);
-      return () => clearTimeout(delayDebounceFn);
-    }
-  }, [keyword]);
+  const { data: searchData } = useQuery<{ results: MovieDetailsProps[] } | null>({
+    queryKey: ["MOVIE_KEYWORD", keyword],
+    queryFn: () => fetchData({
+      method: "GET",
+      apiEndpoint: `https://api.themoviedb.org/3/search/movie?query=${keyword}&include_adult=false&language=en-US&page=1`
+    }),
+  });
 
   return (
-    <div className="relative flex items-center w-full h-[30px]">
-      <div className="flex w-full h-[50px] bg-white rounded-full border border-black p-1">
+    <div className="relative flex items-center w-1/2 h-[30px]">
+      <div className="flex w-full h-[40px] bg-white rounded-full border border-black p-1">
         <input
-          ref={overlayRef}
+        ref={overlayRef}
           type="search"
           name="keyword"
           value={keyword || ""}
@@ -65,7 +47,7 @@ const SearchbarComponent = () => {
           placeholder="search movies..."
           onChange={(e) => setKeyword(e.target.value)}
           className={cn(
-            "p-4 w-full h-full text-black border-none outline-none",
+            "p-4 w-full h-auto text-black border-none outline-none",
             "rounded-full"
           )}
           onFocus={() => setIsShowOverlay(true)}
@@ -84,9 +66,9 @@ const SearchbarComponent = () => {
           )}
           ref={overlayRef}
         >
-          {Array.isArray(data?.results) && data.results.length > 0 ? (
-            <div className="flex flex-col p-1 space-y-3">
-              {data?.results?.map((item) => (
+          {Array.isArray(searchData?.results) && searchData.results.length > 0 ? (
+            <div className="flex flex-col p-1 space-y-2">
+              {searchData?.results?.map((item) => (
                 <NavLink key={item.id} to={`/movie/${item.id}`}>
                   <div className="w-full">{item.title}</div>
                 </NavLink>

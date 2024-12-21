@@ -19,7 +19,6 @@ const CarouselComponent = ({ data }: CarouselProps) => {
   const plugin = React.useRef(
     Autoplay({ delay: 6000, stopOnInteraction: true })
   );
-  console.log(data)
   return (
     <div
       className="flex w-full justify-center px-[30px] lg:px-0"
