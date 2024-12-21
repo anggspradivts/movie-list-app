@@ -1,8 +1,6 @@
 import { Link } from "react-router-dom";
-import { LoaderCircle } from "lucide-react";
 import ScrollXLayout from "../layouts/ScrollXlayout";
 import { MovieDetailsProps } from "@/types/movie-details";
-import { useEffect, useState } from "react";
 import { TVDetailsProps } from "@/types/tv-props";
 import { SkeletonCard } from "../ui/skeleton-card";
 
@@ -20,7 +18,6 @@ const PopularComponent = ({ data, isLoading }: PopularProps) => {
       <div className="py-[30px] flex justify-between items-center">
         <h1 className="text-2xl font-bold">Popular</h1>
         <button
-          // onClick={() => navigate(`/movie/${item.id}`)}
           className="bg-black bg-opacity-10 text-white p-2 px-3 rounded [box-shadow:0_5px_5px_rgba(0,0,0,0.2)] active:translate-y-1"
         >
           More

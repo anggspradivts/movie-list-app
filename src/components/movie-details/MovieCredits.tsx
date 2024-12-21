@@ -1,4 +1,4 @@
-import { Cast, Crew, MovieCredits } from "@/types/movie-credits";
+import { Cast, MovieCredits } from "@/types/movie-credits";
 import ScrollXLayout from "../layouts/ScrollXlayout";
 import { Link } from "react-router-dom";
 import { ArrowBigRight, LoaderCircle } from "lucide-react";
@@ -12,8 +12,6 @@ const MovieCreditsComponent = ({
   isLoading,
 }: MovieCreditsComponentProps) => {
   const castingData: Cast[] = data?.cast || [].slice(0, 20);
-  // const crewData: Crew[] = data?.crew || [];
-  // const creditData = [...castingData, ...crewData].slice(0, 20);
 
   return (
     <div className="mx-[20px] md:mx-[100px] lg:mx-[200px]">

@@ -15,12 +15,12 @@ const SearchbarComponent = () => {
 
   useEffect(() => {
     const handleClick = (event: MouseEvent) => {
-        handleClickOutside({
-          event,
-          ref: overlayRef,
-          setState: setIsShowOverlay,
-        });
-      }
+      handleClickOutside({
+        event,
+        ref: overlayRef,
+        setState: setIsShowOverlay,
+      });
+    };
 
     document.addEventListener("mousedown", handleClick);
 
@@ -54,39 +54,38 @@ const SearchbarComponent = () => {
   }, [keyword]);
 
   return (
-    <div className="relative w-full h-[30px]">
-      <input
-        ref={overlayRef}
-        type="search"
-        name="keyword"
-        value={keyword || ""}
-        id="keyword"
-        placeholder="search movies..."
-        onChange={(e) => setKeyword(e.target.value)}
-        className={cn(
-          "p-4 w-full h-full border-black border text-black",
-          "rounded-lg"
-        )}
-        onFocus={() => setIsShowOverlay(true)}
-      />
-      {!keyword ? (
-        <SearchIcon className="absolute top-4 right-2 transform -translate-y-1/2 text-slate-700" />
-      ) : (
-        <X
-          onClick={() => setKeyword("")}
-          className="absolute top-4 right-2 transform -translate-y-1/2 text-slate-700"
+    <div className="relative flex items-center w-full h-[30px]">
+      <div className="flex w-full h-[50px] bg-white rounded-full border border-black p-1">
+        <input
+          ref={overlayRef}
+          type="search"
+          name="keyword"
+          value={keyword || ""}
+          id="keyword"
+          placeholder="search movies..."
+          onChange={(e) => setKeyword(e.target.value)}
+          className={cn(
+            "p-4 w-full h-full text-black border-none outline-none",
+            "rounded-full"
+          )}
+          onFocus={() => setIsShowOverlay(true)}
         />
-      )}
+        {!keyword && (
+          <div className="flex justify-center items-center bg-orange-500  px-3 md:px-4 rounded-full">
+            Search
+          </div>
+        )}
+      </div>
       {isShowOverlay && (
         <div
           className={cn(
-            "absolute left-0 right-0 mt-1 z-[9999] min max-h-[200px] rounded-lg overflow-y-auto px-4",
+            "absolute left-0 right-0 top-10 mt-1 z-[9999] min max-h-[200px] rounded-3xl overflow-y-auto px-4",
             "bg-white border border-black text-black"
           )}
           ref={overlayRef}
         >
           {Array.isArray(data?.results) && data.results.length > 0 ? (
-            <div className="p-1">
+            <div className="flex flex-col p-1 space-y-3">
               {data?.results?.map((item) => (
                 <NavLink key={item.id} to={`/movie/${item.id}`}>
                   <div className="w-full">{item.title}</div>

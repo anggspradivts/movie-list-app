@@ -14,8 +14,6 @@ const MovieImageComponent = ({ movieId }: MovieImageComponentProps) => {
   const imagesOverlay = useRef<HTMLDivElement | null>(null);
   const [movieImages, setMovieImages] = useState<MovieImageProps | null>(null);
 
-  console.log(movieImages);
-
   useEffect(() => {
     const triggerFetchData = async () => {
       const data = await fetchData({

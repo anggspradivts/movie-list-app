@@ -1,4 +1,4 @@
-import Navbar from "@/components/Navbar2";
+import Navbar from "@/components/Navbar";
 import { Outlet } from "react-router-dom";
 
 const DefaultLayout = () => {

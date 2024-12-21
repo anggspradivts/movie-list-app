@@ -17,7 +17,6 @@ const MovieDetailPage = () => {
 
   const { data: movieDetails } = useQuery<MovieDetailsProps>({
     queryKey: ["MOVIE_DETAILS", movieId],
-    // queryFn: () => fetchMovieDetails(movieId!),
     queryFn: () =>
       fetchData({
         method: "GET",
