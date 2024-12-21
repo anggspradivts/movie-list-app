@@ -71,7 +71,7 @@ const SearchbarComponent = () => {
           onFocus={() => setIsShowOverlay(true)}
         />
         {!keyword && (
-          <div className="flex justify-center items-center bg-orange-500  px-3 md:px-4 rounded-full">
+          <div className="flex justify-center items-center bg-submain2 text-white px-3 md:px-4 rounded-full">
             Search
           </div>
         )}

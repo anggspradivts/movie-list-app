@@ -11,12 +11,12 @@ const ScrollXLayout = ({ children }: ScrollXLayoutProps) => {
     if (scrollRef.current) {
       if (direction === "right") {
         scrollRef.current.scrollBy({
-          left: 150, // Adjust the scroll amount as needed
+          left: 500, // Adjust the scroll amount as needed
           behavior: 'smooth',
         });
       } else {
         scrollRef.current.scrollBy({
-          left: -150,
+          left: -500,
           behavior: 'smooth'
         })
       }

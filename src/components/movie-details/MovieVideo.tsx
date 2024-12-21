@@ -8,7 +8,7 @@ const MovieVideoComponent = ({ data }: MovieVideoComponentProps) => {
   return (
     <div className="flex justify-center mx-[20px] md:mx-[100px] lg:mx-[200px] mt-10">
       <div className="w-full h-[200px] lg:h-[400px] flex justify-center items-center bg-slate-200">
-        {data && Array.isArray(data) && data.results.length < 1 ? (
+        {data && Array.isArray(data.results) && data.results.length > 1 ? (
           <iframe
             width="100%"
             height="100%"
@@ -19,7 +19,7 @@ const MovieVideoComponent = ({ data }: MovieVideoComponentProps) => {
           ></iframe>
         ) : (
           <p className="text-black font-semibold text-xl">
-            Oops video trailer is not available
+            Oops video is not available
           </p>
         )}
       </div>
