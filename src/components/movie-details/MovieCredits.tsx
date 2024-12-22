@@ -12,7 +12,6 @@ const MovieCreditsComponent = ({
   isLoading,
 }: MovieCreditsComponentProps) => {
   const castingData: Cast[] = data?.cast || [].slice(0, 20);
-
   return (
     <div className="mx-[20px] md:mx-[100px] lg:mx-[200px]">
       <div className="py-[30px]">
@@ -23,7 +22,7 @@ const MovieCreditsComponent = ({
         <div className="flex space-x-4 h-full">
           {castingData.map((item, index) => {
               return (
-                <Link key={index} to={`/movie/${item.id}`}>
+                <Link key={index} to={`/actor/${item.id}`}>
                   {isLoading ? (
                     <div className="h-full w-full flex justify-center items-center">
                       <LoaderCircle className="animate-spin" />

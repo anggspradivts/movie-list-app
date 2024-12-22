@@ -3,6 +3,7 @@ import MovieDetailPage from "./pages/MovieDetail";
 import DefaultLayout from "./layouts/DefaultLayout";
 import HomePage from "./pages/Home";
 import NotFoundPage from "./pages/NotFound";
+import ActorDetails from "./pages/ActorDetails";
 
 export const router = createBrowserRouter([
   {
@@ -19,13 +20,13 @@ export const router = createBrowserRouter([
       },
       {
         path: "/actor/:actorId",
-        element: <MovieDetailPage />,
+        element: <ActorDetails />
       },
-      {
-        path: "/not-found",
-        element: <NotFoundPage />
-      }
+      
     ],
   },
-  
+  {
+    path: "*",
+    element: <NotFoundPage />
+  },
 ]);
