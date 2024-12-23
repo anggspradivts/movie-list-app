@@ -12,7 +12,7 @@ import { MovieDetailsProps } from "@/types/movie-details";
 import { TVDetailsProps } from "@/types/tv-props";
 
 interface CarouselProps {
-  data: { results: MovieDetailsProps[] } | { results: TVDetailsProps[] } | undefined;
+  data: MovieDetailsProps[] | TVDetailsProps[] | undefined;
 }
 const CarouselComponent = ({ data }: CarouselProps) => {
   const navigate = useNavigate();
@@ -32,8 +32,8 @@ const CarouselComponent = ({ data }: CarouselProps) => {
       >
         <CarouselContent>
           {data &&
-            Array.isArray(data.results) &&
-            data.results.map((item, index) => (
+            Array.isArray(data) &&
+            data.map((item, index) => (
               <CarouselItem key={index}>
                 <div
                   className="w-full h-[300px] md:h-[500px] bg-cover bg-center"

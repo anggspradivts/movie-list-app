@@ -63,7 +63,7 @@ const MovieDetailPage = () => {
       <CarouselMovie data={movieDetails} />
       <MovieVideoComponent data={movieVideo} />
       <MovieImageComponent movieId={movieId} />
-      <RecomendationSec data={movieRecomendations} isLoading={isLoadingRec} />
+      <RecomendationSec data={movieRecomendations?.results} isLoading={isLoadingRec} />
       <MovieCreditsComponent data={movieCredits} isLoading={isLoadingCredits} />
     </div>
   );

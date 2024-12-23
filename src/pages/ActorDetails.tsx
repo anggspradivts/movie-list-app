@@ -8,11 +8,12 @@ import { fetchData } from "@/utils/fetchData";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import NotFoundPage from "./NotFound";
+import { ErrorResponse } from "@/types/api-response";
 
 const ActorDetails = () => {
   const { actorId } = useParams<{ actorId: string }>();
 
-  const { data: peopleDetails } = useQuery<PeopleDetails>({
+  const { data: peopleDetails } = useQuery<PeopleDetails | ErrorResponse>({
     queryKey: ["MOVIE_DETAILS", actorId],
     queryFn: () =>
       fetchData({
@@ -20,9 +21,12 @@ const ActorDetails = () => {
         apiEndpoint: `https://api.themoviedb.org/3/person/${actorId}?language=en-US`,
       }),
     enabled: !!actorId,
+    throwOnError: true
   });
 
-  const { data: movieCredits, isLoading: isLoadingMovie } = useQuery<{ cast: MovieDetailsProps[]} >({
+  const { data: movieCredits, isLoading: isLoadingMovie } = useQuery<{
+    cast: MovieDetailsProps[];
+  }>({
     queryKey: ["MOVIE_CREDITS", actorId],
     queryFn: () =>
       fetchData({
@@ -44,7 +48,7 @@ const ActorDetails = () => {
     enabled: !!actorId,
   });
 
-  if  (!peopleDetails) return <NotFoundPage />
+  if (peopleDetails && "success" in peopleDetails && !peopleDetails.success) return <NotFoundPage />;
 
   return (
     <div>

@@ -1,9 +1,10 @@
 import { cn } from "@/lib/utils";
 import { PeopleDetails } from "@/types/actor-details";
+import { ErrorResponse } from "@/types/api-response";
 import { useState } from "react";
 
 interface CarouselPeopleProps {
-  data: PeopleDetails | undefined;
+  data: PeopleDetails | ErrorResponse | undefined;
 }
 const CarouselPeople = ({ data }: CarouselPeopleProps) => {
   const [biographyState, setBiographyState] = useState(300);

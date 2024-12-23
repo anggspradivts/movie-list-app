@@ -19,7 +19,7 @@ const MobileNavbar = ({ toggleDarkMode, isDarkMode }: MobileNavbarProps) => {
     >
       <div className="">
         <NavLink to={"/"}>
-          <h1 className="font-bold"> Movie List</h1>
+          <h1 className="font-bold text-lg"> Movie List</h1>
         </NavLink>
       </div>
       <div className="">

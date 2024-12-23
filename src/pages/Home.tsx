@@ -13,9 +13,9 @@ const HomePage = () => {
   const [trendingState, setTrendingState] = useState("day");
 
   //BY POPULARITY
-  const { data: popularData, isLoading: isPopularLoading } = useQuery<
-    { results: MovieDetailsProps[] } | { results: TVDetailsProps[] }
-  >({
+  const { data: popularData, isLoading: isPopularLoading } = useQuery<{
+    results: MovieDetailsProps[] | TVDetailsProps[];
+  }>({
     queryKey: [filterState, filterState],
     queryFn: () =>
       fetchData({
@@ -30,9 +30,9 @@ const HomePage = () => {
   });
 
   //BY TRENDING
-  const { data: trendingData, isLoading: isTrendingLoading } = useQuery<
-    { results: MovieDetailsProps[] } | { results: TVDetailsProps[] }
-  >({
+  const { data: trendingData, isLoading: isTrendingLoading } = useQuery<{
+    results: MovieDetailsProps[] | TVDetailsProps[];
+  }>({
     queryKey: [trendingState, trendingState],
     queryFn: () =>
       fetchData({
@@ -41,13 +41,20 @@ const HomePage = () => {
       }),
   });
 
-
   return (
     <div className="flex flex-col justify-center px-4 md:px-[50px] lg:px-[100px]">
-      <CarouselComponent data={popularData} />
+      <CarouselComponent data={popularData?.results} />
       <FilterSec filterState={filterState} setFilterState={setFilterState} />
-      <PopularComponent data={popularData} isLoading={isPopularLoading} />
-      <TrendingComponent data={trendingData} isLoading={isTrendingLoading} setTrendingState={setTrendingState} trendingState={trendingState} />
+      <PopularComponent
+        data={popularData?.results}
+        isLoading={isPopularLoading}
+      />
+      <TrendingComponent
+        data={trendingData?.results}
+        isLoading={isTrendingLoading}
+        setTrendingState={setTrendingState}
+        trendingState={trendingState}
+      />
     </div>
   );
 };

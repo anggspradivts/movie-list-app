@@ -3,9 +3,10 @@ import { Link } from "react-router-dom";
 import { ArrowBigRight } from "lucide-react";
 import { MovieDetailsProps } from "@/types/movie-details";
 import { SkeletonCard } from "../ui/skeleton-card";
+import Card from "../Card";
 
 interface RecomendationSecProps {
-  data: { results: MovieDetailsProps[] } | undefined;
+  data: MovieDetailsProps[] | undefined;
   isLoading: boolean
 }
 const RecomendationSec = ({ data, isLoading }: RecomendationSecProps) => {
@@ -18,36 +19,17 @@ const RecomendationSec = ({ data, isLoading }: RecomendationSecProps) => {
       <ScrollXLayout>
         <div className="flex space-x-4 h-full">
           {data &&
-            data.results.map((item, index) => {
+            data.map((item, index) => {
               return (
-                <Link key={index} to={`/movie/${item.id}`}>
-                  {isLoading ? (
-                    <SkeletonCard />
-                  ) : (
-                    <div className="space-y-1 h-[200px] md:h-[300px] min-w-[100px] md:min-w-[150px]">
-                      <div className="h-4/6 w-full flex justify-center items-center bg-black bg-opacity-20 overflow-hidden">
-                        {item.backdrop_path ? (
-                          <img
-                            src={`https://image.tmdb.org/t/p/w500${item.backdrop_path}`}
-                            alt="poster_movie"
-                            loading="lazy"
-                            className="object-cover h-full w-full relative"
-                          />
-                        ) : (
-                          <div className="">No image provided</div>
-                        )}
-                      </div>
-                      <div className="space-y-1 h-2/6">
-                        <p className="font-bold">{item.title}</p>
-                        <p>
-                          {new Date(item.release_date || "")
-                            .getFullYear()
-                            .toString()}
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </Link>
+                <Card
+                  key={index}
+                  category={"movie"}
+                  id={item.id}
+                  imagePath={item.backdrop_path}
+                  isLoading={isLoading}
+                  title={item.title}
+                  release_date={"release_date" in item ? item.release_date : ""}
+                />
               );
             })}
           <div className="min-w-[100px] md:min-w-[150px] ">
