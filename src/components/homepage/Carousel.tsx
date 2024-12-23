@@ -61,7 +61,7 @@ const CarouselComponent = ({ data }: CarouselProps) => {
                           View Trailer
                         </button>
                         <button
-                          onClick={() => navigate(`/movie/${item.id}`)}
+                          onClick={() => navigate(`/${"title" in item ? "movie" : "tv"}/${item.id}`)}
                           className="bg-submain2 bg-opacity-40 text-white p-3 px-5 rounded-full shadow-md"
                         >
                           View More

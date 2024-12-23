@@ -3,18 +3,18 @@ import ScrollXLayout from "../layouts/ScrollXlayout";
 import { ArrowBigRight } from "lucide-react";
 import Card from "../Card";
 
-interface TvReccommendationsComponentProps {
+interface TvSimilarComponentProps {
   data: TVDetailsProps[] | undefined;
   isLoading: boolean;
 }
-const TvReccommendationsComponent = ({
+const TvSimilarComponent = ({
   data,
   isLoading,
-}: TvReccommendationsComponentProps) => {
+}: TvSimilarComponentProps) => {
   return (
     <div className="mx-[20px] md:mx-[100px] lg:mx-[200px]">
       <div className="py-[30px]">
-        <h1 className="text-2xl font-bold">Recomendations</h1>
+        <h1 className="text-2xl font-bold">Similar</h1>
       </div>
       <ScrollXLayout>
         <div className="flex space-x-4 h-full">
@@ -46,4 +46,4 @@ const TvReccommendationsComponent = ({
   );
 };
 
-export default TvReccommendationsComponent;
+export default TvSimilarComponent;

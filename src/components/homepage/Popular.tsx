@@ -9,9 +9,9 @@ interface PopularProps {
 }
 const PopularComponent = ({ data, isLoading }: PopularProps) => {
   return (
-    <div className="mx-[20px] md:mx-[50px] lg:mx-[0px]">
+    <div className="lg:mx-[0px]">
       <div className="py-[30px]">
-        <h1 className="text-2xl font-bold">Popular Movie</h1>
+        <h1 className="text-2xl font-bold">Popular</h1>
       </div>
       <ScrollXLayout>
         <div className="flex space-x-4 h-full">
@@ -20,7 +20,7 @@ const PopularComponent = ({ data, isLoading }: PopularProps) => {
               return (
                 <Card
                   key={index}
-                  category={"movie"}
+                  category={"title" in item ? "movie" : "tv"}
                   id={item.id}
                   imagePath={item.backdrop_path}
                   isLoading={isLoading}

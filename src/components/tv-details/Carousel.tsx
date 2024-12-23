@@ -7,7 +7,6 @@ interface CarouselTvComponentProps {
   data: TVDetailsProps | undefined;
 }
 const CarouselTvComponent = ({ data }: CarouselTvComponentProps) => {
-  console.log(data);
   return (
     <div
       className="h-[500px] w-full bg-cover bg-center shadow-lg text-white shadow-submain2"
@@ -70,7 +69,7 @@ const CarouselTvComponent = ({ data }: CarouselTvComponentProps) => {
                       Array.isArray(data.spoken_languages) &&
                       data.spoken_languages.map((lang, index) => {
                         return (
-                          <p>
+                          <p key={index}>
                             {lang.name}
                             {index < data.spoken_languages.length - 1 && ","}{" "}
                           </p>

@@ -1,10 +1,10 @@
 import { MovieVideoProps } from "@/types/movie-video";
 import VideoComponent from "../Video";
 
-interface MovieVideoComponentProps {
+interface TvVideoComponentProps {
   data: MovieVideoProps | undefined;
 }
-const MovieVideoComponent = ({ data }: MovieVideoComponentProps) => {
+const TvVideoComponent = ({ data }: TvVideoComponentProps) => {
   const movieVideoKey = data?.results?.[0]?.key;
   return (
     <div className="flex justify-center mx-[20px] md:mx-[100px] lg:mx-[200px] mt-10">
@@ -18,4 +18,4 @@ const MovieVideoComponent = ({ data }: MovieVideoComponentProps) => {
   );
 };
 
-export default MovieVideoComponent;
+export default TvVideoComponent;

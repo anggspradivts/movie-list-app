@@ -17,7 +17,6 @@ const TvCredits = ({ data, isLoading }: TvCreditsProps) => {
         <div className="flex space-x-4 h-full">
           {Array.isArray(data) &&
             data.map((item, index) => {
-              console.log(item.status)
               return (
                 <Card
                   key={index}
