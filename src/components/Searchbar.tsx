@@ -27,19 +27,22 @@ const SearchbarComponent = () => {
     };
   }, []);
 
-  const { data: searchData } = useQuery<{ results: MovieDetailsProps[] } | null>({
+  const { data: searchData } = useQuery<{
+    results: MovieDetailsProps[];
+  } | null>({
     queryKey: ["MOVIE_KEYWORD", keyword],
-    queryFn: () => fetchData({
-      method: "GET",
-      apiEndpoint: `https://api.themoviedb.org/3/search/movie?query=${keyword}&include_adult=false&language=en-US&page=1`
-    }),
+    queryFn: () =>
+      fetchData({
+        method: "GET",
+        apiEndpoint: `https://api.themoviedb.org/3/search/movie?query=${keyword}&include_adult=false&language=en-US&page=1`,
+      }),
   });
 
   return (
-    <div className="relative flex items-center w-1/2 h-[30px]">
+    <div className="relative flex items-center w-full md:w-1/2 h-[30px]">
       <div className="flex w-full h-[40px] bg-white rounded-full border border-black p-1">
         <input
-        ref={overlayRef}
+          ref={overlayRef}
           type="search"
           name="keyword"
           value={keyword || ""}
@@ -66,7 +69,8 @@ const SearchbarComponent = () => {
           )}
           ref={overlayRef}
         >
-          {Array.isArray(searchData?.results) && searchData.results.length > 0 ? (
+          {Array.isArray(searchData?.results) &&
+          searchData.results.length > 0 ? (
             <div className="flex flex-col p-1 space-y-2">
               {searchData?.results?.map((item) => (
                 <NavLink key={item.id} to={`/movie/${item.id}`}>

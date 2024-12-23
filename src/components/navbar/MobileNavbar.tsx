@@ -27,7 +27,7 @@ const MobileNavbar = ({ toggleDarkMode, isDarkMode }: MobileNavbarProps) => {
           <SheetTrigger>
             <AlignJustify />
           </SheetTrigger>
-          <SheetContent className="flex flex-col  items-center">
+          <SheetContent className="flex flex-col items-center">
             <SheetHeader>
               <div className="flex flex-col space-y-1 text-black items-center ">
                 <Switch onCheckedChange={toggleDarkMode} checked={isDarkMode} />
