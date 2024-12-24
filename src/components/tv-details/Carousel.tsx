@@ -32,10 +32,8 @@ const CarouselTvComponent = ({ data }: CarouselTvComponentProps) => {
             <div className="flex space-x-2">
               <p className="text-lg font-bold">{data?.name}</p>
               <p className="text-lg font-bold">
-                {/* {`[${new Date(data?.release_date || "").getFullYear()}]`} */}
               </p>
             </div>
-            {/* <p>{data?.overview}</p> */}
             <div className="flex flex-col ">
               <div>
                 <p className="font-bold">Genres:</p>

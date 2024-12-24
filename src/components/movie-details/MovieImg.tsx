@@ -1,29 +1,15 @@
 import { cn } from "@/lib/utils";
-import { fetchData } from "@/utils/fetchData";
 import { X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import { Button } from "../ui/button";
 
-interface MovieImageProps {
-  backdrops: { file_path: string }[];
-}
 interface MovieImageComponentProps {
-  movieId: string | undefined;
+  data: { file_path: string }[] | undefined;
 }
-const MovieImageComponent = ({ movieId }: MovieImageComponentProps) => {
+const MovieImageComponent = ({ data }: MovieImageComponentProps) => {
   const [imageOverlay, setImageOverlay] = useState<boolean>(false);
   const imagesOverlay = useRef<HTMLDivElement | null>(null);
-  const [movieImages, setMovieImages] = useState<MovieImageProps | null>(null);
-
-  useEffect(() => {
-    const triggerFetchData = async () => {
-      const data = await fetchData({
-        method: "GET",
-        apiEndpoint: `https://api.themoviedb.org/3/movie/${movieId}/images`,
-      });
-      setMovieImages(data);
-    };
-    triggerFetchData();
-  }, [movieId]);
+  const [totalViewImg, setTotalViewImg] = useState(20);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -41,10 +27,10 @@ const MovieImageComponent = ({ movieId }: MovieImageComponentProps) => {
     };
   }, []);
 
-  const slicedMovieImage = movieImages?.backdrops
-    .map((item) => item)
-    .slice(0, 3);
-  const totalMovieImage = movieImages?.backdrops.map((item) => item);
+  const slicedMovieImage =
+    data && Array.isArray(data) && data.map((item) => item).slice(0, 3);
+  const totalMovieImage =
+    data && Array.isArray(data) && data.map((item) => item);
 
   return (
     <div className="h-[400px] mx-[20px] md:mx-[100px] lg:mx-[200px]">
@@ -63,7 +49,7 @@ const MovieImageComponent = ({ movieId }: MovieImageComponentProps) => {
               src={`https://image.tmdb.org/t/p/w500${
                 slicedMovieImage && slicedMovieImage[0].file_path
               }`}
-              alt=""
+              alt="img"
               className="w-full h-full object-cover"
             />
           </div>
@@ -90,7 +76,9 @@ const MovieImageComponent = ({ movieId }: MovieImageComponentProps) => {
                   onClick={() => setImageOverlay(true)}
                   className="h-full w-full text-white"
                 >
-                  {"+" + movieImages?.backdrops.length}
+                  {"+" + totalMovieImage &&
+                    Array.isArray(totalMovieImage) &&
+                    totalMovieImage.length - slicedMovieImage.length}
                 </button>
               </div>
             </div>
@@ -111,23 +99,36 @@ const MovieImageComponent = ({ movieId }: MovieImageComponentProps) => {
                 </div>
                 <div className="images-container">
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-1">
-                    {totalMovieImage?.map((item, index) => {
-                      return (
-                        <div
-                          key={index}
-                          className="flex justify-center items-center"
-                        >
-                          <img
-                            className="h-full w-full"
-                            src={`https://image.tmdb.org/t/p/w500${item.file_path}`}
-                            alt=""
-                            loading="lazy"
-                          />
-                        </div>
-                      );
-                    })}
+                    {totalMovieImage &&
+                      totalMovieImage
+                        .slice(0, totalViewImg)
+                        .map((item, index) => {
+                          return (
+                            <div
+                              key={index}
+                              className="flex justify-center items-center"
+                            >
+                              <img
+                                className="h-full w-full"
+                                src={`https://image.tmdb.org/t/p/w500${item.file_path}`}
+                                alt=""
+                                loading="lazy"
+                              />
+                            </div>
+                          );
+                        })}
                   </div>
                 </div>
+                <center className="center">
+                  {totalMovieImage && totalViewImg < totalMovieImage.length && (
+                    <Button
+                      onClick={() => setTotalViewImg((prev) => prev * 2)}
+                      className="bg-submain2"
+                    >
+                      view more
+                    </Button>
+                  )}
+                </center>
               </div>
             </div>
           )}

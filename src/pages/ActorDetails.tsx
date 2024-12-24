@@ -13,7 +13,7 @@ import { ErrorResponse } from "@/types/api-response";
 const ActorDetails = () => {
   const { actorId } = useParams<{ actorId: string }>();
 
-  const { data: peopleDetails } = useQuery<PeopleDetails | ErrorResponse>({
+  const { data: peopleDetails } = useQuery<PeopleDetails>({
     queryKey: ["MOVIE_DETAILS", actorId],
     queryFn: () =>
       fetchData({
@@ -47,6 +47,8 @@ const ActorDetails = () => {
       }),
     enabled: !!actorId,
   });
+
+  console.log(peopleDetails)
 
   if (peopleDetails && "success" in peopleDetails && !peopleDetails.success) return <NotFoundPage />;
 

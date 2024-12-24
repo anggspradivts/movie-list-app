@@ -1,10 +1,10 @@
 import { cn } from "@/lib/utils";
 import { PeopleDetails } from "@/types/actor-details";
-import { ErrorResponse } from "@/types/api-response";
 import { useState } from "react";
+import ContentNotFound from "../ui/content-not-found";
 
 interface CarouselPeopleProps {
-  data: PeopleDetails | ErrorResponse | undefined;
+  data: PeopleDetails | undefined;
 }
 const CarouselPeople = ({ data }: CarouselPeopleProps) => {
   const [biographyState, setBiographyState] = useState(300);
@@ -22,12 +22,16 @@ const CarouselPeople = ({ data }: CarouselPeopleProps) => {
         )}
       >
         <div className="flex justify-center flex-col md:flex-row md:space-x-5 m-[20px] md:m-[100px] lg:m-[200px]">
-          <div className="h-[200px] w-[150px] shadow-md flex-shrink-0">
-            <img
-              src={`https://image.tmdb.org/t/p/w500${data?.profile_path}`}
-              alt=""
-              className="w-full h-full object-cover"
-            />
+          <div className="flex justify-center items-center h-[200px] w-[150px] shadow-md flex-shrink-0">
+            {data?.profile_path ? (
+              <img
+                src={`https://image.tmdb.org/t/p/w500${data?.profile_path}`}
+                alt=""
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <ContentNotFound type="with-context" context="image" classname="bg-slate-100"  />
+            )}
           </div>
           <div className="space-y-4">
             <div className="flex space-x-2 ">

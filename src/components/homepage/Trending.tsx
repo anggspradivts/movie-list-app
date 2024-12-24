@@ -57,7 +57,7 @@ const TrendingComponent = ({
               return (
                 <Card
                   key={index}
-                  category={"actor"}
+                  category={"movie"}
                   id={item.id}
                   imagePath={item.backdrop_path}
                   isLoading={isLoading}

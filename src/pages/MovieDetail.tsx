@@ -58,12 +58,25 @@ const MovieDetailPage = () => {
     enabled: !!movieId,
   });
 
+  const { data: movieImages } = useQuery<{ backdrops: { file_path: string }[] }>({
+    queryKey: ["MOVIE_IMAGES", movieId],
+    queryFn: () =>
+      fetchData({
+        method: "GET",
+        apiEndpoint: `https://api.themoviedb.org/3/movie/${movieId}/images`,
+      }),
+    enabled: !!movieId,
+  });
+
   return (
     <div>
       <CarouselMovie data={movieDetails} />
       <MovieVideoComponent data={movieVideo} />
-      <MovieImageComponent movieId={movieId} />
-      <RecomendationSec data={movieRecomendations?.results} isLoading={isLoadingRec} />
+      <MovieImageComponent data={movieImages?.backdrops} />
+      <RecomendationSec
+        data={movieRecomendations?.results}
+        isLoading={isLoadingRec}
+      />
       <MovieCreditsComponent data={movieCredits} isLoading={isLoadingCredits} />
     </div>
   );
