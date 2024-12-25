@@ -1,20 +1,20 @@
-import { TVDetailsProps } from "@/types/tv-props";
 import ScrollXLayout from "../layouts/ScrollXlayout";
 import { ArrowBigRight } from "lucide-react";
 import Card from "../Card";
+import { PeopleDetails } from "@/types/actor-details";
 
-interface TvSimilarComponentProps {
-  data: TVDetailsProps[] | undefined;
+interface TvCreditsComponentProps {
+  data: PeopleDetails[] | undefined;
   isLoading: boolean;
 }
-const TvSimilarComponent = ({
+const TvCreditsComponent = ({
   data,
   isLoading,
-}: TvSimilarComponentProps) => {
+}: TvCreditsComponentProps) => {
   return (
     <div className="mx-[20px] md:mx-[100px] lg:mx-[200px]">
       <div className="py-[30px]">
-        <h1 className="text-2xl font-bold">Similar</h1>
+        <h1 className="text-2xl font-bold">Credits</h1>
       </div>
       <ScrollXLayout>
         <div className="flex space-x-4 h-full">
@@ -26,9 +26,10 @@ const TvSimilarComponent = ({
                   key={index}
                   category={"actor"}
                   id={item.id}
-                  imagePath={item.backdrop_path}
+                  imagePath={item.profile_path}
                   isLoading={isLoading}
                   title={item.name}
+                  asActor={item.known_for_department}
                 />
               );
             })}
@@ -46,4 +47,4 @@ const TvSimilarComponent = ({
   );
 };
 
-export default TvSimilarComponent;
+export default TvCreditsComponent;

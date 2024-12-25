@@ -5,9 +5,9 @@ interface ContentNotFoundProps {
 }
 const ContentNotFound = ({ context, type, classname }: ContentNotFoundProps) => {
   return (
-    <div className={`w-full h-full ${classname}`}>
+    <div className={`flex text-center items-center w-full h-full ${classname}`}>
       {type === "with-context" ? (
-        <p className="font-semibold italic">
+        <p className="font-semibold">
           Oops, {context} not found!! we will do something about this
         </p>
       ) : (

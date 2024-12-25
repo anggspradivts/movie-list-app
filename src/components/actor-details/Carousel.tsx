@@ -30,7 +30,7 @@ const CarouselPeople = ({ data }: CarouselPeopleProps) => {
                 className="w-full h-full object-cover"
               />
             ) : (
-              <ContentNotFound type="with-context" context="image" classname="bg-slate-100"  />
+              <ContentNotFound type="with-context" context="image" classname="bg-slate-100 text-black"  />
             )}
           </div>
           <div className="space-y-4">
