@@ -1,7 +1,5 @@
 import { MovieDetailsProps } from "@/types/movie-details";
 import ScrollXLayout from "../layouts/ScrollXlayout";
-import { Link } from "react-router-dom";
-import { SkeletonCard } from "../ui/skeleton-card";
 import { ArrowBigRight } from "lucide-react";
 import Card from "../Card";
 

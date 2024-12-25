@@ -8,7 +8,6 @@ import { fetchData } from "@/utils/fetchData";
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import NotFoundPage from "./NotFound";
-import { ErrorResponse } from "@/types/api-response";
 
 const ActorDetails = () => {
   const { actorId } = useParams<{ actorId: string }>();

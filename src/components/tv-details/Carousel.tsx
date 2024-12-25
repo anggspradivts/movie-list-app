@@ -5,14 +5,19 @@ import { NavLink } from "react-router-dom";
 
 interface CarouselTvComponentProps {
   data: TVDetailsProps | undefined;
+  isLoading: boolean;
 }
-const CarouselTvComponent = ({ data }: CarouselTvComponentProps) => {
+const CarouselTvComponent = ({ data, isLoading }: CarouselTvComponentProps) => {
   return (
     <div
       className="h-[500px] w-full bg-cover bg-center shadow-lg text-white shadow-submain2"
-      style={{
-        backgroundImage: `url(https://image.tmdb.org/t/p/w500${data?.backdrop_path})`,
-      }}
+      style={
+        isLoading
+          ? {
+              backgroundImage: `url(https://image.tmdb.org/t/p/w500${data?.backdrop_path})`,
+            }
+          : { backgroundColor: "black" }
+      }
     >
       <div
         className={cn(
@@ -22,17 +27,21 @@ const CarouselTvComponent = ({ data }: CarouselTvComponentProps) => {
       >
         <div className="flex flex-col md:flex-row md:space-x-5 mx-[20px] md:m-[100px] lg:m-[200px]">
           <div className="h-[200px] w-[150px] shadow-md flex-shrink-0">
-            <img
-              src={`https://image.tmdb.org/t/p/w500${data?.poster_path}`}
-              alt=""
-              className="w-full h-full object-cover"
-            />
+            {isLoading ? (
+              <img
+                src={`https://image.tmdb.org/t/p/w500${data?.poster_path}`}
+                alt=""
+                className="w-full h-full object-cover"
+              />
+            ) : (
+              <div className="animate-pulse w-full h-full object-cover">
+              </div>
+            )}
           </div>
           <div className="space-y-4">
             <div className="flex space-x-2">
               <p className="text-lg font-bold">{data?.name}</p>
-              <p className="text-lg font-bold">
-              </p>
+              <p className="text-lg font-bold"></p>
             </div>
             <div className="flex flex-col ">
               <div>
@@ -69,7 +78,8 @@ const CarouselTvComponent = ({ data }: CarouselTvComponentProps) => {
                         return (
                           <p key={index}>
                             {lang.name}
-                            {index < data.spoken_languages.length - 1 && ","}{" "}
+                            {index < data.spoken_languages.length - 1 &&
+                              ","}{" "}
                           </p>
                         );
                       })
@@ -80,7 +90,14 @@ const CarouselTvComponent = ({ data }: CarouselTvComponentProps) => {
                 </div>
               </div>
               <p className="font-bold">episode: {data?.number_of_episodes}</p>
-              <p className="font-bold">First airing/Last airing: {data?.last_air_date && new Date(data?.first_air_date).toDateString()}/{data?.last_air_date && new Date(data?.last_air_date).toDateString()}</p>
+              <p className="font-bold">
+                First airing/Last airing:{" "}
+                {data?.last_air_date &&
+                  new Date(data?.first_air_date).toDateString()}
+                /
+                {data?.last_air_date &&
+                  new Date(data?.last_air_date).toDateString()}
+              </p>
             </div>
           </div>
         </div>

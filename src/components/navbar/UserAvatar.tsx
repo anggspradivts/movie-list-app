@@ -1,7 +1,6 @@
 import { getCookie } from "@/utils/getCookie";
 import { Button } from "../ui/button";
 import { useToast } from "@/hooks/use-toast";
-import { useEffect } from "react";
 
 interface ReqTokenProps {
   success: boolean;

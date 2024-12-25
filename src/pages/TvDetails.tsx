@@ -61,13 +61,13 @@ const TvDetailsPage = () => {
 
   return (
     <div>
-      <CarouselTvComponent data={tvDetails} />
+      <CarouselTvComponent data={tvDetails} isLoading={isLoadingDetails} />
       <TvVideoComponent data={tvVideo} />
       <TvReccommendationsComponent
         data={tvReccommendations?.results}
         isLoading={isLoadingReccommendation}
       />
-      <TvCreditsComponent isLoading={isLoadingCredits} data={tvCredits} />
+      <TvCreditsComponent isLoading={isLoadingCredits} data={tvCredits?.results.cast} />
     </div>
   );
 };
